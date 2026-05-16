@@ -17,7 +17,7 @@ ids_df = pd.read_csv("data/tmdb_movie_ids.csv")
 ids_df = ids_df[ids_df["adult"] == False]
 ids_df = ids_df.sort_values(by="popularity", ascending=False)
 
-movie_ids = ids_df["id"].head(1000).tolist()
+movie_ids = ids_df["id"].head(5000).tolist()
 
 movies = []
 
@@ -70,10 +70,10 @@ for index, movie_id in enumerate(movie_ids, start=1):
                 "poster_path": data.get("poster_path"),
             })
 
-            print(f"{index}/1000 Saved: {data.get('title')}")
+            print(f"{index}/{len(movie_ids)} Saved: {data.get('title')}")
 
         else:
-            print(f"{index}/1000 Failed ID {movie_id}: {response.status_code}")
+            print(f"{index}/{len(movie_ids)} Failed ID {movie_id}: {response.status_code}")
 
     except requests.exceptions.RequestException as error:
         print(f"{index}/1000 Connection error for ID {movie_id}")
