@@ -33,7 +33,6 @@ def create_feature_text(row):
         + str(row["keywords"]) + " "
         + str(row["cast"]) + " "
         + str(row["director"]) + " "
-        + str(row["overview"])
     )
 
 
@@ -73,7 +72,7 @@ def get_watched_weight(row):
 
     rating = float(rating)
 
-    return rating - 5
+    return (rating - 5.5) / 4.5
 
 
 def get_watchlist_weight():
@@ -179,3 +178,60 @@ def add_quality_score(recommendations, similarity_column, final_column):
     )
 
     return recommendations
+
+def build_user_profile_from_data(user_data, movies_df, movie_matrix):
+    user_profile_vector = None
+    known_imdb_ids = set()
+
+    watched = user_data.get("watched", [])
+    watchlist = user_data.get("watchlist", [])
+
+    # Watched movies are stronger because the user already watched them
+    watched_weight = 0.6
+
+    # Watchlist movies are weaker because they only show interest
+    watchlist_weight = 0.2
+
+    for movie in watched:
+        imdb_id = str(movie.get("imdb_id", "")).strip()
+
+        if imdb_id == "":
+            continue
+
+        known_imdb_ids.add(imdb_id)
+
+        matches = movies_df[movies_df["imdb_id"] == imdb_id]
+
+        if matches.empty:
+            continue
+
+        movie_index = matches.index[0]
+        movie_vector = movie_matrix[movie_index] * watched_weight
+
+        if user_profile_vector is None:
+            user_profile_vector = movie_vector
+        else:
+            user_profile_vector = user_profile_vector + movie_vector
+
+    for movie in watchlist:
+        imdb_id = str(movie.get("imdb_id", "")).strip()
+
+        if imdb_id == "":
+            continue
+
+        known_imdb_ids.add(imdb_id)
+
+        matches = movies_df[movies_df["imdb_id"] == imdb_id]
+
+        if matches.empty:
+            continue
+
+        movie_index = matches.index[0]
+        movie_vector = movie_matrix[movie_index] * watchlist_weight
+
+        if user_profile_vector is None:
+            user_profile_vector = movie_vector
+        else:
+            user_profile_vector = user_profile_vector + movie_vector
+
+    return user_profile_vector, known_imdb_ids
