@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MovieBlend - Create Watch Room</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    // Pozadine - tvoja čista crna (#000000) i tamne bioskopske nijanse uglja
+                    "background": "#000000", 
+                    "surface": "#121212", // Tamna osnova za komponente
+                    "surface-bright": "#1C1C1C", 
+                    "surface-container-lowest": "#0A0A0A",
+                    "surface-container-low": "#1A1A1A", // Kartice pre nego što ih selektuješ
+                    "surface-container": "#242424", 
+                    "surface-container-high": "#2D2D2D",
+                    "surface-container-highest": "#363636",
+                    
+                    // Tekstovi - Čista bela i tvoja nežna svetlo-roze (#FFDEDE) za opise i manji tekst
+                    "on-background": "#FFFFFF",
+                    "on-surface": "#FFFFFF",
+                    "on-surface-variant": "#FFDEDE", // TVOJA BOJA: daje prelepu toplinu tekstovima u mraku
+                    "deep-forest": "#FFFFFF", // Glavni naslov
+                    
+                    // Primarna akcentna boja - Tvoja neon jarka roze-crvena (#FF0B55) za glavno dugme za nastavak
+                    "primary": "#FF0B55", 
+                    "primary-container": "#CF0F47", // TVOJA BOJA: bogata tamnija crvena za hover efekat dugmeta
+                    "on-primary": "#FFFFFF",
+                    "on-primary-container": "#FFFFFF",
+                    
+                    // Sekundarna i selekciona boja - Aktivno stanje svetli u punom neon sjaju
+                    "secondary-container": "#FF0B55", // Kada se kartica selektuje, sija jarko roze-crveno
+                    "on-secondary-container": "#FFFFFF",
+                    "surface-variant": "#2A141A", // Blagi crvenkasti sjaj u pozadini neaktivne kartice na hover
+                    
+                    // Konture i granice elemenata (takođe prožete tvojom svetlom nijansom)
+                    "outline": "#4A3B3E",
+                    "outline-variant": "#FFDEDE", // Svetle konture gde zatrebaju
+                    
+                    // Pomoćne nijanse uklopljene u estetiku
+                    "secondary": "#CF0F47",
+                    "on-secondary": "#FFFFFF",
+                    "tertiary": "#FF0B55",
+                    "tertiary-container": "#1A1A1A",
+                    "on-tertiary": "#FFFFFF",
+                    "on-tertiary-container": "#FFFFFF",
+                    "error": "#FF0B55",
+                    "error-container": "#4A0012",
+                    "on-error": "#FFFFFF",
+                    "on-error-container": "#FFDAD6",
+                    "inverse-surface": "#FFDEDE",
+                    "inverse-on-surface": "#000000",
+                    "inverse-primary": "#FF0B55",
+                    "primary-fixed": "#FFDADF",
+                    "primary-fixed-dim": "#FFB3BE",
+                    "on-primary-fixed-variant": "#930022",
+                    "on-secondary-fixed-variant": "#680014"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "2rem",
+                    "stack-lg": "1.5rem",
+                    "stack-sm": "0.5rem",
+                    "gutter": "1rem",
+                    "stack-md": "1rem",
+                    "margin-mobile": "1rem"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "title-md": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {             background-color: rgb(27, 26, 26);
+}
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-scale:active { transform: scale(0.95); transition: transform 0.2s ease; }
+        .nav-active { font-variation-settings: 'FILL' 1; }
+        .organic-shape { border-radius: 60% 40% 70% 30% / 40% 50% 60% 50%; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-on-surface antialiased pb-32">
+<!-- Top AppBar -->
+<header class="bg-surface-container-low sticky top-0 z-50 flex justify-between items-center w-full px-margin-mobile py-stack-sm shadow-sm rounded-b-lg">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-variant flex items-center justify-center">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="A close-up portrait of a friendly young man with a warm smile, set against a soft, blurred background of a cozy modern living room. The lighting is warm and organic, perfectly aligning with a cozy-tech aesthetic using soft mint and deep forest green tones. Professional studio photography style with high clarity and natural skin textures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5nHVMz_24Dcf-TnoY8-jkbYlVBJasGQlxGst1EMthsoVyfO6mPv4a0MRPiR6fK2xfH2zMtrKd_p4_CIpjSIrkMvr5HaafE9Ot8ID5KZ91KhFUrZfC8yHZslmsG3MNZUlM84y40UF8NJ-o0p7iaQP0-eSCCB6Kqk0F-uYnnSEar5vM6E8VYD7f_krMLak6UkdM1jnhqfYgDYY_R0rOLrn-lIphh2YfdyUWZCckVUMFLzdlVbdJ0JEVWgalosMDfEx7VXAuc_QIPw"/>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">MovieBlend</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+</header>
+<main class="px-margin-mobile pt-stack-lg max-w-2xl mx-auto">
+<!-- Page Header -->
+<div class="mb-stack-lg">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-deep-forest mb-2">Create Watch Room</h2>
+<p class="text-on-surface-variant font-body-md">Pick a mascot and gather your crew for a cinematic journey.</p>
+</div>
+<!-- Invite Friends Section -->
+<section class="mb-stack-lg space-y-gutter">
+<div class="flex items-center justify-between">
+<h3 class="font-title-md text-title-md text-deep-forest">Invite Friends</h3>
+<span style="color: white;" class="text-label-sm font-label-sm text-primary bg-secondary-container px-3 py-1 rounded-full">12 Online</span>
+</div>
+<div class="flex gap-4 overflow-x-auto hide-scrollbar py-2">
+<!-- Friend Circles -->
+<div class="flex flex-col items-center gap-2 flex-shrink-0 cursor-pointer group">
+<div class="w-16 h-16 rounded-full border-2 border-primary p-0.5 group-active:scale-95 transition-transform">
+<img class="w-full h-full rounded-full object-cover" data-alt="A high-quality profile photo of a young woman laughing, featuring soft natural lighting and a warm, inviting atmosphere. The background is a clean, minimalist interior with subtle green plants. The image has a soft, organic feel consistent with a premium social app interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC50KtP1OI3aiYM0F6pziy56gJoDKe-Pzm_L0B0_JQaN7Dl_BGREcQlyC85XgacRRknQoPicn-omeNK-TkxKNXTh5QYapvjba3_Bw34UmFE6zJAnkv1bJbflA06FIeBkbM_YOPJPTUhhzITE_XC1F9k0gBVOQ3ik6ePBzZ3FaX0AnKp1TNteTono5aqypaiembUrQz7glsKMtG4AHr3RyrpKS3SP7NZS-y9PteTc5YABXd9RuJdY9VywfHQ4aZFP_eG9GLhSs4duw"/>
+</div>
+<span class="text-label-sm font-label-sm">Sarah</span>
+</div>
+<div class="flex flex-col items-center gap-2 flex-shrink-0 cursor-pointer group">
+<div class="w-16 h-16 rounded-full border-2 border-transparent p-0.5 group-active:scale-95 transition-transform">
+<img class="w-full h-full rounded-full object-cover" data-alt="A portrait of a creative individual with a stylish haircut, looking thoughtfully into the camera. The lighting is diffused and modern, emphasizing clear textures and a cozy, tech-forward aesthetic. The color palette is natural with earthy tones and soft greens." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCliTJL34M9pb4npF8mAbgPv0GnirAAZ64fqn_ws6Ye9Y65546bli3RF7baqeHfTucqrseBPUQSRMn5zkRTrghlhXL1Umf1ij_1kQ4IIHFyUEbSY_WP0e_ht8gIx6wRbxd-M5y0O7SSYI1Cm-mhNlWIXzUwN1OIHCtIy1Vu27PkaPgnNRijmhUEhOa67YDWV-TWGc1hz9vp9phb32pz4qjtiUKprK6uv37UmKGb4fK5p8z1y5CjS-hdAzsM3i_LYnYgAAAsNHim6w"/>
+</div>
+<span class="text-label-sm font-label-sm">Marcus</span>
+</div>
+<div class="flex flex-col items-center gap-2 flex-shrink-0 cursor-pointer group">
+<div class="w-16 h-16 rounded-full border-2 border-transparent p-0.5 group-active:scale-95 transition-transform">
+<img class="w-full h-full rounded-full object-cover" data-alt="A candid profile shot of a person smiling brightly, with soft golden-hour lighting creating a warm and welcoming glow. The style is professional and friendly, fitting a premium social platform. Colors are vibrant yet natural, with a focus on human connection." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDte1gC6qm-Bfd7SnzXvXI-s9VRzHsXJzzIaTDg-GEk5NEM9qn-jK532lnPplqtmibWtDPKSHWbJmGjJ7w-eQLwS8A9MX5rFLfhX4e4UZWXxHRWBfzmg5a5UMwrPFeLn5rmN47abGA7kEiHT_9onY6t0ITEB5raWnRN2ZCXadwhR9HjSU_FgPvNKATGhFxmfqgQAGixtE2Zad_e2pMC-9ycT-gBJGRqeJIsG_ugsuiK2Q5hWW1WyMbSMwldj5KWd_l6yAm4Q16S0g"/>
+</div>
+<span class="text-label-sm font-label-sm">Elena</span>
+</div>
+<div class="flex flex-col items-center gap-2 flex-shrink-0 cursor-pointer group">
+<div class="w-16 h-16 rounded-full border-2 border-transparent p-0.5 group-active:scale-95 transition-transform">
+<img class="w-full h-full rounded-full object-cover" data-alt="A portrait of a cheerful person in a casual setting, featuring clear details and an organic, modern vibe. The composition is balanced and uses soft, flattering light to enhance the friendly atmosphere. The image feels cozy and approachable." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1pyinfW8O4PC1uXlCHkO3ALFMOisC1aqZw_ght1qQre4KLQ7Kx9pnZfcgTEZnvx_PNiwqBwYllV2-bF4bYRVrjCVd4WAC0XQ9XCHRaOBthBi4OgfymNktMWwaTIj0UanMOqUNwaAYV_RzdxMRzS-vuobMineCSjq0LweFGTfFjGKa9kWZgEk3dYeZl2Hv5OXM_0e0EYJt7Tn_xmM0g4Vrgzju441_JBaMPbdPFmy_OvFDNaEMQAv9TK5dmirGE8JSrzy5xlPHtg"/>
+</div>
+<span class="text-label-sm font-label-sm">Jamie</span>
+</div>
+<button class="flex flex-col items-center gap-2 flex-shrink-0 group">
+<div class="w-16 h-16 rounded-full bg-surface-container-highest flex items-center justify-center group-active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-primary text-3xl">add</span>
+</div>
+<span  class="text-label-sm font-label-sm text-primary">Add</span>
+</button>
+</div>
+</section>
+<!-- Invite Link Box -->
+<section class="bg-surface-variant p-gutter rounded-lg mb-stack-lg">
+<label class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider mb-2 block">Shareable invite link</label>
+<div class="flex gap-2">
+<div class="flex-grow bg-surface-bright border border-outline-variant px-4 py-3 rounded-full text-on-surface font-body-md truncate">
+                    movieblend.com/room/j3k2-9s8l-p0n4
+                </div>
+<button style="color: #CF0F47;" class="bg-deep-forest text-white px-6 py-3 rounded-full font-title-md text-title-md active-scale flex items-center gap-2" onclick="copyLink(this)">
+<span class="material-symbols-outlined text-base">content_copy</span>
+<span>Copy</span>
+</button>
+</div>
+</section>
+<!-- Pet Selection Section -->
+<section class="mb-stack-lg">
+<h3 class="font-title-md text-title-md text-deep-forest mb-4">Pick your room mascot</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Sprout the Turtle -->
+<div class="pet-card relative group cursor-pointer p-4 rounded-lg bg-surface-container-low border-2 border-transparent hover:border-primary-container transition-all" data-pet="sprout" onclick="selectPet(this)">
+<div class="aspect-square organic-shape bg-primary-container mb-3 flex items-center justify-center overflow-hidden">
+<img class="w-3/4 h-3/4 object-contain" data-alt="A stylized, cute 3D-rendered baby sea turtle with large, expressive eyes. The character is designed in a modern, organic 'cozy-tech' style with soft textures and a warm green color palette. The lighting is soft and studio-like, creating an adorable and inviting room mascot for a digital space." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-RlmJyN4PbqDQQl12j27egaWouQuQ5INyrau9d8fAvMlodbIAv-SIAX0UHyqAWNUkO3yzwv8xS5tTQ01ms5GyoQuTtVmmkGEjoybKG8oKC-avSxCOO9cWPHuxnC6fpsrWPIENBvjnxhjM02qZK9D6bnZgDatX6TOVjeB5F9HGaKMQL7tyCSR5n0tb-8gHKB_apxikO5ToAlmi-_1y20ew03mDf7HfIG2tvpIPIztmoOa8j_IDI8WH2TZ9noA2xNAfTGuGWGpOKA"/>
+</div>
+<div class="text-center">
+<p class="font-title-md text-title-md text-on-surface">Sprout</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">The Turtle</p>
+</div>
+<div class="absolute top-2 right-2 opacity-0 group-[.selected]:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-primary bg-white rounded-full">check_circle</span>
+</div>
+</div>
+<!-- Pebble the Penguin -->
+<div class="pet-card relative group cursor-pointer p-4 rounded-lg bg-surface-container-low border-2 border-transparent hover:border-primary-container transition-all" data-pet="pebble" onclick="selectPet(this)">
+<div class="aspect-square organic-shape bg-secondary-container mb-3 flex items-center justify-center overflow-hidden">
+<img class="w-3/4 h-3/4 object-contain" data-alt="A cute, chubby 3D-rendered penguin character with a soft blue and white color scheme. The mascot has large, friendly eyes and a small, happy beak. The style is cozy and modern, utilizing soft-focus lighting and organic shapes that suggest warmth and playfulness in a digital social environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuArSUd-xATH9Z3JiYO5F2_yb7NpXyMWkOP61EWuxkGRlCOZmxlPuwNBd2WumGGE2hrK7HriSmr6TH0rynAsUFwqcGwopLpoTnRkDcOGXkPhHmMM-CFT68lVPCRoZ21NRUWhjTbOr_3NndwOW4ElEeVhD-QsTta8Iy0AlHlA6F6W8NP36ROCTsNovsyRma-jQUlXXl3v0aNv2-MEhKIna5NYf56Qq_uSolUxIIfjB7mLeAHSTK55fFx6gU899wvefj6alRuE-92K9w"/>
+</div>
+<div class="text-center">
+<p class="font-title-md text-title-md text-on-surface">Pebble</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">The Penguin</p>
+</div>
+<div class="absolute top-2 right-2 opacity-0 group-[.selected]:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-primary bg-white rounded-full">check_circle</span>
+</div>
+</div>
+<!-- Fern the Fox -->
+<div class="pet-card relative group cursor-pointer p-4 rounded-lg bg-surface-container-low border-2 border-transparent hover:border-primary-container transition-all" data-pet="fern" onclick="selectPet(this)">
+<div class="aspect-square organic-shape bg-tertiary-container mb-3 flex items-center justify-center overflow-hidden">
+<img class="w-3/4 h-3/4 object-contain" data-alt="An adorable, stylized 3D fox character with soft orange and cream fur textures. The fox has big ears and a gentle expression, designed in a high-end, cozy-tech aesthetic. The setting is bright and cheerful, using a palette of warm ambers and soft forest greens to create a comforting digital companion." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRGnIGF23fKPcnxdrMzHirXtWG7eei5TTIBbxc3ayOwtFTrb9iVSUKcbqXUo3nDR6SfpRP_XiyFqwHvIpM4EiVDBZ_aJ30m93Bx9nsFza-VV0q07girQaQ-yixdBPPwFX5m17Ih_WfOVzvQu4nIy_ceg7ipzac0XDU4mphI1g5jbFCdXnv2x51e8ZxlvPqVATyiNBrteEGR6sbBmEjbmz4HVGhC0F-1DvfXQIb_V7pVoRGwLizXr9F5WpRf3nhaUsvNaw5fHewNg"/>
+</div>
+<div class="text-center">
+<p class="font-title-md text-title-md text-on-surface">Fern</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">The Fox</p>
+</div>
+<div class="absolute top-2 right-2 opacity-0 group-[.selected]:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-primary bg-white rounded-full">check_circle</span>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Action -->
+<div class="mt-stack-lg">
+<button class="w-full bg-primary text-white py-5 rounded-full font-headline-lg-mobile text-headline-lg-mobile active-scale shadow-lg flex items-center justify-center gap-3" onclick="window.location.href='../watch_room_lobby/code.html'">
+<span class="material-symbols-outlined">movie_filter</span>
+<span>Launch Watch Room</span>
+</button>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-4 pt-2 bg-surface dark:bg-surface-dim z-50 rounded-t-lg shadow-[0_-4px_12px_rgba(8,28,21,0.08)]">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1.5 transition-all duration-300 ease-out active:scale-90" href="../dashboard/code.html">
+<span class="material-symbols-outlined mb-1">home</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-primary-container text-on-secondary-container dark:text-on-primary-container rounded-full px-5 py-1.5 transition-all duration-300 ease-out active:scale-90" href="#">
+<span class="material-symbols-outlined mb-1 nav-active">movie_filter</span>
+<span class="font-label-sm text-label-sm">Blend</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1.5 transition-all duration-300 ease-out active:scale-90" href="../room_history/code.html">
+<span class="material-symbols-outlined mb-1">history</span>
+<span class="font-label-sm text-label-sm">History</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1.5 transition-all duration-300 ease-out active:scale-90" href="../my_profile/code.html">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a>
+</nav>
+<script>
+        function selectPet(element) {
+            // Remove selection from others
+            document.querySelectorAll('.pet-card').forEach(card => {
+                card.classList.remove('selected', 'bg-primary-container', 'bg-opacity-10', 'border-primary');
+            });
+            
+            // Add selection to current
+            element.classList.add('selected', 'border-primary');
+            element.style.backgroundColor = 'rgba(11, 105, 71, 0.05)';
+            
+            // Subtle feedback
+            element.classList.add('scale-95');
+            setTimeout(() => element.classList.remove('scale-95'), 150);
+        }
+
+        function copyLink(btn) {
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-outlined text-base">check</span><span>Copied!</span>';
+            btn.classList.replace('bg-deep-forest', 'bg-primary');
+            
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.classList.replace('bg-primary', 'bg-deep-forest');
+            }, 2000);
+        }
+
+        // Initialize with Sprout selected
+        window.onload = () => {
+            const sprout = document.querySelector('[data-pet="sprout"]');
+            if (sprout) selectPet(sprout);
+        };
+    </script>
+</body></html>

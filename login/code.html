@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-scale:active {
+            transform: scale(0.95);
+        }
+        .soft-glow {
+            box-shadow: 0 0 40px rgba(11, 105, 71, 0.05);
+        }
+        .floating-blob {
+            filter: blur(80px);
+            z-index: -1;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    // Pozadine - tvoja čista crna (#000000) i tamne bioskopske nijanse uglja
+                    "background": "#000000", 
+                    "surface": "#121212", // Tamna osnova za komponente
+                    "surface-bright": "#1C1C1C", 
+                    "surface-container-lowest": "#0A0A0A",
+                    "surface-container-low": "#1A1A1A", // Kartice pre nego što ih selektuješ
+                    "surface-container": "#242424", 
+                    "surface-container-high": "#2D2D2D",
+                    "surface-container-highest": "#363636",
+                    
+                    // Tekstovi - Čista bela i tvoja nežna svetlo-roze (#FFDEDE) za opise i manji tekst
+                    "on-background": "#FFFFFF",
+                    "on-surface": "#FFFFFF",
+                    "on-surface-variant": "#FFDEDE", // TVOJA BOJA: daje prelepu toplinu tekstovima u mraku
+                    "deep-forest": "#FFFFFF", // Glavni naslov
+                    
+                    // Primarna akcentna boja - Tvoja neon jarka roze-crvena (#FF0B55) za glavno dugme za nastavak
+                    "primary": "#FF0B55", 
+                    "primary-container": "#CF0F47", // TVOJA BOJA: bogata tamnija crvena za hover efekat dugmeta
+                    "on-primary": "#FFFFFF",
+                    "on-primary-container": "#FFFFFF",
+                    
+                    // Sekundarna i selekciona boja - Aktivno stanje svetli u punom neon sjaju
+                    "secondary-container": "#FF0B55", // Kada se kartica selektuje, sija jarko roze-crveno
+                    "on-secondary-container": "#FFFFFF",
+                    "surface-variant": "#2A141A", // Blagi crvenkasti sjaj u pozadini neaktivne kartice na hover
+                    
+                    // Konture i granice elemenata (takođe prožete tvojom svetlom nijansom)
+                    "outline": "#4A3B3E",
+                    "outline-variant": "#FFDEDE", // Svetle konture gde zatrebaju
+                    
+                    // Pomoćne nijanse uklopljene u estetiku
+                    "secondary": "#CF0F47",
+                    "on-secondary": "#FFFFFF",
+                    "tertiary": "#FF0B55",
+                    "tertiary-container": "#1A1A1A",
+                    "on-tertiary": "#FFFFFF",
+                    "on-tertiary-container": "#FFFFFF",
+                    "error": "#FF0B55",
+                    "error-container": "#4A0012",
+                    "on-error": "#FFFFFF",
+                    "on-error-container": "#FFDAD6",
+                    "inverse-surface": "#FFDEDE",
+                    "inverse-on-surface": "#000000",
+                    "inverse-primary": "#FF0B55",
+                    "primary-fixed": "#FFDADF",
+                    "primary-fixed-dim": "#FFB3BE",
+                    "on-primary-fixed-variant": "#930022",
+                    "on-secondary-fixed-variant": "#680014"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "2rem",
+                    "stack-lg": "1.5rem",
+                    "stack-sm": "0.5rem",
+                    "gutter": "1rem",
+                    "stack-md": "1rem",
+                    "margin-mobile": "1rem"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "title-md": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+<body class="bg-background font-body-md text-on-background min-h-screen flex flex-col items-center justify-center relative py-8">
+<div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-surface-variant rounded-full floating-blob opacity-40"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-secondary-container rounded-full floating-blob opacity-30"></div>
+<main class="w-full max-w-[440px] px-margin-mobile md:px-0 flex flex-col items-center z-10">
+<header class="mb-stack-lg text-center">
+<div class="flex items-center justify-center mb-stack-sm">
+<div class="w-16 h-16 bg-primary rounded-lg flex items-center justify-center soft-glow">
+<span class="material-symbols-outlined text-white text-[40px]" data-icon="movie_filter">movie_filter</span>
+</div>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-deep-forest mb-2">MovieBlend</h1>
+<p class="font-body-md text-on-surface-variant max-w-[320px] mx-auto">
+                    Ready for tonight's feature? Settle in, grab your popcorn, and let's find your next favorite film.
+                </p>
+</header>
+<div class="w-full bg-surface-container-lowest p-8 rounded-lg soft-glow border border-surface-container">
+<form class="space-y-gutter" onsubmit="event.preventDefault();">
+<div class="mb-stack-md">
+<h2 class="font-title-md text-title-md text-on-surface">Welcome Back</h2>
+<p class="font-label-sm text-label-sm text-outline">Enter your details to rejoin the room</p>
+</div>
+<div class="space-y-stack-md">
+<div class="relative group">
+<label class="font-label-sm text-label-sm text-on-surface-variant ml-2 mb-1 block" for="email">Email Address</label>
+<input class="w-full px-6 py-4 rounded-full border-outline-variant bg-surface-container-low text-on-surface focus:ring-primary focus:border-primary border transition-all placeholder:text-outline-variant outline-none" id="email" placeholder="alex@cinema.com" type="email"/>
+</div>
+<div class="relative group">
+<label class="font-label-sm text-label-sm text-on-surface-variant ml-2 mb-1 block" for="password">Password</label>
+<input class="w-full px-6 py-4 rounded-full border-outline-variant bg-surface-container-low text-on-surface focus:ring-primary focus:border-primary border transition-all placeholder:text-outline-variant outline-none" id="password" placeholder="••••••••" type="password"/>
+</div>
+</div>
+<button class="w-full py-4 bg-primary text-white rounded-full font-title-md text-title-md active-scale transition-transform flex items-center justify-center gap-2 hover:bg-deep-forest mt-4 shadow-lg shadow-primary/10" type="submit" onclick="window.location.href='../dashboard/code.html'">
+                    Welcome Back
+                </button>
+<div class="relative flex items-center py-stack-md">
+<div class="flex-grow border-t border-surface-container-highest"></div>
+<span class="flex-shrink mx-4 font-label-sm text-label-sm text-outline">or continue with</span>
+<div class="flex-grow border-t border-surface-container-highest"></div>
+</div>
+<button class="w-full py-4 bg-secondary-container text-on-secondary-container rounded-full font-title-md text-title-md active-scale transition-transform flex items-center justify-center gap-2 hover:bg-primary-container hover:text-white" type="button">
+<span class="material-symbols-outlined" data-icon="link">link</span>
+                    Link IMDb Account
+                </button>
+<div class="flex justify-center mt-gutter">
+<button class="font-label-sm text-label-sm text-primary hover:underline" type="button">Forgot password?</button>
+</div>
+</form>
+</div>
+<footer class="mt-stack-lg text-center">
+<p class="font-body-md text-on-surface-variant">
+                    First time at the movies? 
+                    <a class="text-primary font-title-md hover:underline" href="../your_movie_taste/code.html">Create a free account</a>
+</p>
+</footer>
+<div class="hidden lg:block absolute left-[-20%] top-[20%] w-64 h-80 bg-surface-variant rotate-[-6deg] rounded-lg overflow-hidden soft-glow">
+<img class="w-full h-full object-cover opacity-80" alt="Movie Poster" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHyAP9LIvtQvWYMuUABMmi5LvKgysgAJNeSjLn50FOhbYGguHvTCjL0KraQ1WWuCETz9XqdQTn6IXne4-Nps4SNYdvsVUbIz_uZ48DMRqmBfSPQLVPqwHLFwPt0biXeBO7lKjwmcM6rF_YLeUG5D2cvVOg9l3G1knM9gbuRhXH-WffS8N-SO4lXwFTLOvg7pU6v18SVeoQIHWnH9vFdjzVRO7RbP0LSHruw9bVGBfjD0_nauM4ZktDoKACVxfs14zycFuBakAjdQ"/>
+</div>
+</main>
+<script>
+        // Simple micro-interaction for input fields
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.style.transform = 'translateY(-2px)';
+                input.parentElement.style.transition = 'transform 0.2s ease-out';
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Add ripple effect logic to buttons
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach(button => {
+            button.addEventListener('mousedown', (e) => {
+                button.style.transform = 'scale(0.96)';
+            });
+            button.addEventListener('mouseup', () => {
+                button.style.transform = 'scale(1)';
+            });
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body></html>

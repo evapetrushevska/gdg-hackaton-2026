@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Live Session - MovieBlend</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    // Pozadine - tvoja čista crna (#000000) i tamne bioskopske nijanse uglja
+                    "background": "#000000", 
+                    "surface": "#121212", // Tamna osnova za komponente
+                    "surface-bright": "#1C1C1C", 
+                    "surface-container-lowest": "#0A0A0A",
+                    "surface-container-low": "#1A1A1A", // Kartice pre nego što ih selektuješ
+                    "surface-container": "#242424", 
+                    "surface-container-high": "#2D2D2D",
+                    "surface-container-highest": "#363636",
+                    
+                    // Tekstovi - Čista bela i tvoja nežna svetlo-roze (#FFDEDE) za opise i manji tekst
+                    "on-background": "#FFFFFF",
+                    "on-surface": "#FFFFFF",
+                    "on-surface-variant": "#FFDEDE", // TVOJA BOJA: daje prelepu toplinu tekstovima u mraku
+                    "deep-forest": "#FFFFFF", // Glavni naslov
+                    
+                    // Primarna akcentna boja - Tvoja neon jarka roze-crvena (#FF0B55) za glavno dugme za nastavak
+                    "primary": "#FF0B55", 
+                    "primary-container": "#CF0F47", // TVOJA BOJA: bogata tamnija crvena za hover efekat dugmeta
+                    "on-primary": "#FFFFFF",
+                    "on-primary-container": "#FFFFFF",
+                    
+                    // Sekundarna i selekciona boja - Aktivno stanje svetli u punom neon sjaju
+                    "secondary-container": "#FF0B55", // Kada se kartica selektuje, sija jarko roze-crveno
+                    "on-secondary-container": "#FFFFFF",
+                    "surface-variant": "#2A141A", // Blagi crvenkasti sjaj u pozadini neaktivne kartice na hover
+                    
+                    // Konture i granice elemenata (takođe prožete tvojom svetlom nijansom)
+                    "outline": "#4A3B3E",
+                    "outline-variant": "#FFDEDE", // Svetle konture gde zatrebaju
+                    
+                    // Pomoćne nijanse uklopljene u estetiku
+                    "secondary": "#CF0F47",
+                    "on-secondary": "#FFFFFF",
+                    "tertiary": "#FF0B55",
+                    "tertiary-container": "#1A1A1A",
+                    "on-tertiary": "#FFFFFF",
+                    "on-tertiary-container": "#FFFFFF",
+                    "error": "#FF0B55",
+                    "error-container": "#4A0012",
+                    "on-error": "#FFFFFF",
+                    "on-error-container": "#FFDAD6",
+                    "inverse-surface": "#FFDEDE",
+                    "inverse-on-surface": "#000000",
+                    "inverse-primary": "#FF0B55",
+                    "primary-fixed": "#FFDADF",
+                    "primary-fixed-dim": "#FFB3BE",
+                    "on-primary-fixed-variant": "#930022",
+                    "on-secondary-fixed-variant": "#680014"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "2rem",
+                    "stack-lg": "1.5rem",
+                    "stack-sm": "0.5rem",
+                    "gutter": "1rem",
+                    "stack-md": "1rem",
+                    "margin-mobile": "1rem"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "title-md": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .pet-bounce {
+            animation: bounce 3s ease-in-out infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .progress-glow {
+            box-shadow: 0 0 15px rgba(48, 131, 95, 0.4);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+            background-color: rgb(27, 26, 26);
+
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md text-body-md overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="bg-surface-container-low dark:bg-surface-container-high shadow-sm dark:shadow-none fixed top-0 w-full z-50 rounded-b-lg flex justify-between items-center px-margin-mobile py-stack-sm">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container">
+<img alt="User Avatar" data-alt="A high-quality, professional 3D stylized avatar of a friendly young man with a warm smile, wearing a dark green hoodie. The art style is soft and organic with cinematic lighting that emphasizes texture and depth, set against a clean, mint-white background that matches a cozy-tech aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC922NytYovwFvvArzrSj9pQelXkUnSuNXTtoPSqUI-oyHLbkOQaS4OmPuinjOAEvwNuHJGmcKtSDXn2qhCjKBnqifodWMajFM1Gne66hAUdGe_Ee_Max53XGDYFofqqAWShQ7lKOcil8bNp5m1X28mo4v1LZhCb2W6_jHuoJAuzfoZH_uFKryp4UIXFuvjmdKg3_vwmoaFssMjN7drcU83Dvf7FnnOR2UqY9g7TtweBBXZvI8Ku7JrWXvhsi7USWGhDxfbfdThRg"/>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary dark:text-primary-fixed-dim">MovieBlend</h1>
+</div>
+<button class="w-12 h-12 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container-highest transition-transform active:scale-95">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-24 pb-20 px-margin-mobile md:px-margin-desktop max-w-2xl mx-auto w-full flex flex-col gap-8">
+<!-- Shared Room Pet & Status -->
+<section class="bg-surface-variant rounded-lg p-6 flex flex-col items-center text-center gap-4 relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-1 bg-primary-container opacity-20"></div>
+<!-- Pet Container -->
+<div class="pet-bounce flex flex-col items-center gap-2">
+<div class="w-24 h-24 bg-primary-container rounded-full flex items-center justify-center relative shadow-lg">
+<span class="material-symbols-outlined text-on-primary-container !text-5xl" style="font-variation-settings: 'FILL' 1;">pets</span>
+<!-- Level Tag -->
+<span style="color: #CF0F47;" class="absolute -bottom-1 -right-1 bg-deep-forest text-white text-[10px] px-2 py-0.5 rounded-full font-bold">LVL 4</span>
+</div>
+<p class="font-label-sm text-label-sm text-primary uppercase tracking-widest">Cozy Companion</p>
+</div>
+<!-- Pet Progress -->
+<div class="w-full max-w-xs flex flex-col gap-1">
+<div class="h-3 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container progress-glow transition-all duration-1000" id="pet-progress" style="width: 65%;"></div>
+</div>
+<p class="text-[10px] text-outline text-right">Growth: 650/1000xp</p>
+</div>
+<div class="mt-2">
+<h2 class="font-title-md text-title-md text-deep-forest">Watching <span class="text-primary italic">Dune: Part Two</span></h2>
+<p class="text-on-surface-variant text-sm mt-1">with <span class="font-semibold">Sarah, Marcus, and 2 others</span></p>
+</div>
+</section>
+<!-- Synchronized Timer Card -->
+<section class="bg-surface-container-low rounded-lg p-8 flex flex-col items-center justify-center gap-6 shadow-sm">
+<div class="text-center">
+<p class="font-label-sm text-label-sm text-outline uppercase tracking-widest mb-2">Remaining Runtime</p>
+<div class="font-headline-lg text-headline-lg text-deep-forest tabular-nums tracking-tight" id="timer">
+                    01:14:42
+                </div>
+</div>
+<!-- Playback Controls -->
+<div class="flex items-center gap-6">
+<button class="w-14 h-14 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined !text-3xl">replay_10</span>
+</button>
+<button style="color: #CF0F47;" class="w-20 h-20 rounded-full bg-deep-forest flex items-center justify-center text-white shadow-lg hover:scale-110 active:scale-95 transition-all" id="main-action" onclick="togglePlay()">
+<span class="material-symbols-outlined !text-4xl" id="play-icon" style="font-variation-settings: 'FILL' 1;">pause</span>
+</button>
+<button class="w-14 h-14 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined !text-3xl">forward_30</span>
+</button>
+</div>
+</section>
+<!-- Dynamic Feedback Prompt -->
+<section class="bg-primary-container text-on-primary-container rounded-lg p-6 flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-4 duration-500" id="completion-prompt">
+<div class="flex items-start gap-4">
+<div class="bg-on-primary-container/20 p-2 rounded-full">
+<span class="material-symbols-outlined">question_mark</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md">Is the movie done?</h3>
+<p class="opacity-90 text-sm">Synchronizing everyone's progress...</p>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row gap-3 mt-2">
+<button class="flex-1 bg-white text-primary font-bold py-3 rounded-full hover:bg-surface-bright transition-colors active:scale-[0.98]">
+                    Yes, rate it!
+                </button>
+<button style="color: #CF0F47;" class="flex-1 bg-deep-forest text-white font-bold py-3 rounded-full hover:bg-opacity-90 transition-colors active:scale-[0.98]">
+                    Not yet (Add time)
+                </button>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Hidden on desktop in some logic, but kept here for mobile-first requirement) -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-4 pt-2 bg-surface dark:bg-surface-dim shadow-[0_-4px_12px_rgba(8,28,21,0.08)] z-50 rounded-t-lg">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1.5 hover:bg-surface-container-highest dark:hover:bg-surface-variant transition-all rounded-full group" href="#">
+<span class="material-symbols-outlined group-active:scale-90 transition-transform">home</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-primary-container text-on-secondary-container dark:text-on-primary-container rounded-full px-5 py-1.5 transition-all scale-95" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">movie_filter</span>
+<span class="font-label-sm text-label-sm">Blend</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1.5 hover:bg-surface-container-highest dark:hover:bg-surface-variant transition-all rounded-full group" href="#">
+<span class="material-symbols-outlined group-active:scale-90 transition-transform">history</span>
+<span class="font-label-sm text-label-sm">History</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1.5 hover:bg-surface-container-highest dark:hover:bg-surface-variant transition-all rounded-full group" href="#">
+<span class="material-symbols-outlined group-active:scale-90 transition-transform">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for the play button
+        let isPlaying = true;
+        let timeLeft = 4482; // 01:14:42 in seconds
+        
+        function togglePlay() {
+            isPlaying = !isPlaying;
+            const icon = document.getElementById('play-icon');
+            const actionBtn = document.getElementById('main-action');
+            
+            if (isPlaying) {
+                icon.innerText = 'pause';
+                actionBtn.classList.replace('bg-primary', 'bg-deep-forest');
+            } else {
+                icon.innerText = 'play_arrow';
+                actionBtn.classList.replace('bg-deep-forest', 'bg-primary');
+            }
+        }
+
+        // Simple Countdown Logic
+        setInterval(() => {
+            if (isPlaying && timeLeft > 0) {
+                timeLeft--;
+                const hours = Math.floor(timeLeft / 3600);
+                const minutes = Math.floor((timeLeft % 3600) / 60);
+                const seconds = timeLeft % 60;
+                
+                document.getElementById('timer').innerText = 
+                    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                // Slow Pet Progress Growth during watching
+                if (timeLeft % 10 === 0) {
+                    const currentWidth = parseFloat(document.getElementById('pet-progress').style.width);
+                    if (currentWidth < 100) {
+                        document.getElementById('pet-progress').style.width = (currentWidth + 0.1) + '%';
+                    }
+                }
+            }
+        }, 1000);
+
+        // Visibility observer for prompt animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100');
+                }
+            });
+        });
+        
+        document.getElementById('completion-prompt').classList.add('opacity-0');
+        observer.observe(document.getElementById('completion-prompt'));
+    </script>
+</body></html>

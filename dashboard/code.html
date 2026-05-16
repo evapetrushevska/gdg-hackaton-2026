@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MovieBlend Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    // Pozadine - tvoja čista crna (#000000) i tamne bioskopske nijanse uglja
+                    "background": "#000000", 
+                    "surface": "#121212", // Tamna osnova za komponente
+                    "surface-bright": "#1C1C1C", 
+                    "surface-container-lowest": "#0A0A0A",
+                    "surface-container-low": "#1A1A1A", // Kartice pre nego što ih selektuješ
+                    "surface-container": "#242424", 
+                    "surface-container-high": "#2D2D2D",
+                    "surface-container-highest": "#363636",
+                    
+                    // Tekstovi - Čista bela i tvoja nežna svetlo-roze (#FFDEDE) za opise i manji tekst
+                    "on-background": "#FFFFFF",
+                    "on-surface": "#FFFFFF",
+                    "on-surface-variant": "#FFDEDE", // TVOJA BOJA: daje prelepu toplinu tekstovima u mraku
+                    "deep-forest": "#FFFFFF", // Glavni naslov
+                    
+                    // Primarna akcentna boja - Tvoja neon jarka roze-crvena (#FF0B55) za glavno dugme za nastavak
+                    "primary": "#FF0B55", 
+                    "primary-container": "#CF0F47", // TVOJA BOJA: bogata tamnija crvena za hover efekat dugmeta
+                    "on-primary": "#FFFFFF",
+                    "on-primary-container": "#FFFFFF",
+                    
+                    // Sekundarna i selekciona boja - Aktivno stanje svetli u punom neon sjaju
+                    "secondary-container": "#FF0B55", // Kada se kartica selektuje, sija jarko roze-crveno
+                    "on-secondary-container": "#FFFFFF",
+                    "surface-variant": "#2A141A", // Blagi crvenkasti sjaj u pozadini neaktivne kartice na hover
+                    
+                    // Konture i granice elemenata (takođe prožete tvojom svetlom nijansom)
+                    "outline": "#4A3B3E",
+                    "outline-variant": "#FFDEDE", // Svetle konture gde zatrebaju
+                    
+                    // Pomoćne nijanse uklopljene u estetiku
+                    "secondary": "#CF0F47",
+                    "on-secondary": "#FFFFFF",
+                    "tertiary": "#FF0B55",
+                    "tertiary-container": "#1A1A1A",
+                    "on-tertiary": "#FFFFFF",
+                    "on-tertiary-container": "#FFFFFF",
+                    "error": "#FF0B55",
+                    "error-container": "#4A0012",
+                    "on-error": "#FFFFFF",
+                    "on-error-container": "#FFDAD6",
+                    "inverse-surface": "#FFDEDE",
+                    "inverse-on-surface": "#000000",
+                    "inverse-primary": "#FF0B55",
+                    "primary-fixed": "#FFDADF",
+                    "primary-fixed-dim": "#FFB3BE",
+                    "on-primary-fixed-variant": "#930022",
+                    "on-secondary-fixed-variant": "#680014"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "2rem",
+                    "stack-lg": "1.5rem",
+                    "stack-sm": "0.5rem",
+                    "gutter": "1rem",
+                    "stack-md": "1rem",
+                    "margin-mobile": "1rem"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "title-md": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: rgb(27, 26, 26);
+            -webkit-tap-highlight-color: transparent;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            color: #CF0F47;
+        }
+        .glass-overlay {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(8px);
+        }
+        .active-scale:active {
+            transform: scale(0.95);
+            transition: transform 0.2s;
+        }
+        /* Hides scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hides scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-on-background selection:bg-secondary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-40 bg-surface-container-low shadow-sm px-margin-mobile py-stack-sm flex justify-between items-center rounded-b-lg">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-fixed">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A professional and friendly headshot of a young adult with a warm smile, set against a soft, out-of-focus natural background. The lighting is gentle and flattering, emphasizing a cozy and modern aesthetic that aligns with the organic and approachable brand identity of the MovieBlend platform. High-end portrait photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAL1p8JdCWSE5E5BdmB2TEI3ufuZJVN2QXyUKrHRwNUTzyErlNjiK9clgECHm1c82ircZVes8jEzDkh4s6sln8sDM5_zIiXuOGqPMAvSBUqLTTq4oXGMP3g186g4smi6DD7HWs1sPGpy6BJcqDHTehNLhN7N2MZQL5UYr83MVoeio875cH3jLXGnvi6uJh48s4SffPtOwLwzyaQnrS2off47cY2b7mLmdes4BmfZ0VpJC3g0lMunJSDtireD_pGHj0v21jRzwZYKA"/>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">MovieBlend</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-highest transition-colors active-scale">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+</header>
+<main class="pt-24 pb-32 px-margin-mobile max-w-5xl mx-auto">
+<!-- Personal Greeting -->
+<section class="mb-stack-lg">
+<p class="font-label-sm text-on-surface-variant mb-1">Welcome back,</p>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Good evening, Alex</h2>
+</section>
+<!-- Live Friend Lobby (Bento Style Hub) -->
+<section class="mb-stack-lg">
+<div class="bg-primary-container text-on-primary-container p-6 rounded-lg relative overflow-hidden shadow-sm">
+<!-- Abstract organic shapes for background pattern -->
+<div class="absolute -right-10 -top-10 w-40 h-40 bg-white opacity-10 rounded-full blur-2xl"></div>
+<div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="relative flex h-3 w-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary-fixed opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-secondary-fixed"></span>
+</span>
+<span class="font-title-md text-title-md">Live Friend Lobby</span>
+</div>
+<p class="text-on-primary-container/80 text-body-md max-w-md">Sam, Chloe, and 2 others are watching 'Interstellar'. Join the conversation!</p>
+</div>
+<button style="color: #CF0F47;" class="bg-deep-forest text-white py-3 px-8 rounded-full font-title-md text-title-md active-scale self-start md:self-center flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+                        Join Room
+                    </button>
+</div>
+<div class="mt-6 flex -space-x-3 overflow-hidden">
+<img alt="Friend 1" class="inline-block h-10 w-10 rounded-full ring-2 ring-primary-container" data-alt="A portrait of a smiling woman with a creative and friendly vibe, set against a soft-focus studio background. The color palette is warm and inviting, fitting a social and gamified cinematic platform. Clear, bright lighting with a cozy-tech feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRNvw8lprirxPATTAXrOBP4QBNGvXhYHY9VbNd6kfSvy07BrwWMcCk5gYXlqXg4IBz9Yb1trGbxjGrjA1ZXNTSpwqcvx5dyT6tuwXjUc44CwYHfD8Yz3b6TNe6M5_TJQbGjk-NYfCqa9UhbT6sSvwDeP1ilIpd7Lzom2mDYgWHjylIhl8TJRJ0PTrP58cRFDn_dsw7dpuduPYJ1lO8HPw7FNr7NqDMDYcj2XPRb3JsLYlj38Gp4WG--8FzizeNeQVHsStoZS_y2Q"/>
+<img alt="Friend 2" class="inline-block h-10 w-10 rounded-full ring-2 ring-primary-container" data-alt="A portrait of a cheerful man looking into the camera with an approachable and friendly expression. The lighting is soft and warm, complementing a nature-inspired mint and forest green palette. High-quality digital photography with a modern, organic aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDszWu9BGpPvdl2S4VV8JFP-_urICwd9bY2pkm_QFskPHYybhU73GBa7adL4K3bZs_uINOCYPWI8BnILqAWNIwc-ynBhMbuhtv94QJ08X4jsVjtxZSffbOsIEHcG31yfk3UMe_6PFwjXicWTA37vCWPLTTLzkil6eN6mV-Vsp1YuoDdRjxAHacRLv0qnis_TBgNCGVZxVz773r3UOrYYfF7Ze7Du7O0Vxl0k3Fz4zeCcf_anGN2oGlAVq_CUakpHiMvL1-ZctiLXA"/>
+<img alt="Friend 3" class="inline-block h-10 w-10 rounded-full ring-2 ring-primary-container" data-alt="A candid, warm portrait of a woman laughing, conveying a sense of joy and social connection. The image is bright and modern, using soft lighting and a clean, organic background to fit a premium cinematic social application style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuByTy4lTIi2UTb1V2fNtSWLeMHGy9mTFkA6DFAtwFJlT5dGbiFlldGqf7W-gKnQV1w-iGH3CMe3szC4CpoHxowglRTqPHLNGVLHfAdOitmpvlA900MNNtQn8wZp6tvAwxCY6YtC80hyKH70evi11KXTImXQcvZls2STIfXn8ympz1AJpdP_ZgcH28_TXCulMKlYTxbYFQ9wc8B6eV4iXW2sBfZK9zklEjdmQ54aPziVogkCmfMlrZAEZ4-XkSrw5L8R71EtfXF5fA"/>
+<div class="flex items-center justify-center h-10 w-10 rounded-full bg-secondary-container text-on-secondary-container ring-2 ring-primary-container font-label-sm">+2</div>
+</div>
+</div>
+</section>
+<!-- IMDb Sync Header -->
+<div class="flex items-center justify-between mb-stack-md">
+<h3 class="font-title-md text-title-md text-on-surface">For You</h3>
+<div class="flex items-center gap-2 text-primary font-label-sm">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+                Synced from IMDb
+            </div>
+</div>
+
+<!-- Horizontal Slider Bar Container with Centered Stationary Arrows -->
+<div class="relative px-2">
+  <!-- Left Stationary Navigation Arrow -->
+  <button id="slide-left-btn" class="absolute -left-2 top-[45%] -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-surface-container-high border border-outline hover:bg-surface-container-highest text-primary flex items-center justify-center backdrop-blur-sm hover:scale-110 active:scale-95 transition-transform shadow-lg">
+    <span class="material-symbols-outlined">chevron_left</span>
+  </button>
+
+  <!-- Right Stationary Navigation Arrow -->
+  <button id="slide-right-btn" class="absolute -right-2 top-[45%] -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-surface-container-high border border-outline hover:bg-surface-container-highest text-primary flex items-center justify-center backdrop-blur-sm hover:scale-110 active:scale-95 transition-transform shadow-lg">
+    <span class="material-symbols-outlined">chevron_right</span>
+  </button>
+
+  <!-- Content Slider -->
+  <div id="movie-slider" class="flex gap-4 overflow-x-auto pb-4 no-scrollbar snap-x snap-mandatory scroll-smooth">
+    <!-- Movie Card 1 -->
+    <div class="min-w-[260px] sm:min-w-[280px] max-w-[280px] snap-start active-scale flex-shrink-0">
+    <div class="bg-surface-variant rounded-lg overflow-hidden relative group h-full flex flex-col">
+    <div class="relative h-72 w-full overflow-hidden">
+    <img alt="Everything Everywhere All at Once" class="w-full h-full object-cover" data-alt="A vibrant, cinematic movie poster concept with surrealist and colorful elements, featuring kaleidoscopic light patterns and a sense of cosmic wonder. The mood is energetic and imaginative, using a rich palette of greens, purples, and golds. Professional digital art style with high detail." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAew1IQqVl9l5br8PR91C9V93VFUAXqDy32guktaixMISYttF1X5bT6QJj5pwlxpsP1mdUnLktr1SkQwxyCK3Kjn3OA0VL53JA0o3Re9cAjF6HcezFPTYLfPor466vE77oUD0sqiBWJI4k4hwDEAfJGT_6W1AK18vDSj-osheZMVws1-Y73qQfPLVUJnwRU0s70f826h97ojb2Jd8LCS3YXrbIWTaEGnej4gSB7hmJiZxL1i5mTs4_UTCiVaqXHB_uh7UJBoTd3xw"/>
+    <div class="absolute top-3 right-3 glass-overlay px-3 py-1 rounded-full flex items-center gap-1">
+    <span class="material-symbols-outlined text-primary text-[16px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+    <span class="font-label-sm text-on-surface">98% Match</span>
+    </div>
+    </div>
+    <div class="p-4 bg-surface-variant flex-grow flex flex-col justify-between">
+    <h4 class="font-title-md text-on-surface leading-tight">Everything Everywhere All at Once</h4>
+    <div class="flex gap-2 mt-2">
+    <span class="bg-primary-container/10 text-primary px-2 py-0.5 rounded-full text-[10px] font-label-sm uppercase">Sci-Fi</span>
+    <span class="bg-primary-container/10 text-primary px-2 py-0.5 rounded-full text-[10px] font-label-sm uppercase">Drama</span>
+    </div>
+    </div>
+    </div>
+    </div>
+
+    <!-- Movie Card 2 -->
+    <div class="min-w-[260px] sm:min-w-[280px] max-w-[280px] snap-start active-scale flex-shrink-0">
+    <div class="bg-surface-variant rounded-lg overflow-hidden relative group h-full flex flex-col">
+    <div class="relative h-72 w-full overflow-hidden">
+    <img alt="Inception" class="w-full h-full object-cover" data-alt="A moody and atmospheric cinematic shot depicting a gravity-defying urban environment with a mysterious, intellectual tone. Cool blues and sharp contrasts dominate the scene, creating a sense of psychological depth and modern thriller aesthetic. High-fidelity cinematic photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4sm-B2xHiokU5yFvS-FoS_jgZqUJOjlqg_kFA_eN14JCmRp3FKuIIj2F4_dAkpdwKnTA25QQ7JpIytueuN5FFz3QRdJVphH_2OArS7bZrjIfdUt8ucWz4ECLylOqt7kD4EPZu3ZeCB1IbG739kRGn_yW3PL44rep2AlkBTiudWliU4tfdjhluIc-GFM7Hkho8GGYYDBhchJth4Xvr6HyepGSenuLaTxR38iE-RNhNr56dfp_NbLjU6hDqdb3jRfh5LxUqPerufg"/>
+    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+    <div class="absolute top-3 right-3 glass-overlay px-3 py-1 rounded-full flex items-center gap-1">
+    <span class="material-symbols-outlined text-primary text-[16px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+    <span class="font-label-sm text-on-surface">92% Match</span>
+    </div>
+    </div>
+    <div class="p-4 bg-surface-variant flex-grow flex flex-col justify-between">
+    <h4 class="font-title-md text-on-surface leading-tight">Inception</h4>
+    <p class="text-on-surface-variant text-label-sm mt-1">Based on your love for Sci-Fi</p>
+    </div>
+    </div>
+    </div>
+
+    <!-- Movie Card 3 -->
+    <div class="min-w-[260px] sm:min-w-[280px] max-w-[280px] snap-start active-scale flex-shrink-0">
+    <div class="bg-surface-variant rounded-lg overflow-hidden relative group h-full flex flex-col">
+    <div class="relative h-72 w-full overflow-hidden">
+    <img alt="Parasite" class="w-full h-full object-cover" data-alt="A striking minimalist movie poster visual featuring a modern architectural house with sharp lines and deep shadows. The atmosphere is tense and sophisticated, utilizing a palette of cold grays and warm interior glows. Cinematic lighting that emphasizes class contrast and suspenseful drama." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxsg3hD9cLj3iPPSVmhPq4u6nGJDlmX1KymTQYbHs9hrmiXtHmLW6-YJZxyV1K1vdmZ-4b5DfzBOg0W0FigkXp8-VDsClnfH3LdRRGdVbqd7hANkITBf7eBAXPNaOy0IvshAlIU6WAE37YwLM_dWzzQMpea_73duTcwzYOWkTYuHMdHjIggU90jlGsUJDC9iJYwHUXtVlsDsDvZ-2_aSKAdGLWr6OEHBNMOE4ca8izPHlWtszHHtsxD6dW2SbLo5n2IF7DOCjbRQ"/>
+    <div class="absolute top-3 right-3 glass-overlay px-3 py-1 rounded-full flex items-center gap-1">
+    <span class="material-symbols-outlined text-primary text-[16px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+    <span class="font-label-sm text-on-surface">89% Match</span>
+    </div>
+    </div>
+    <div class="p-4 bg-surface-variant flex-grow flex flex-col justify-between">
+    <h4 class="font-title-md text-on-surface leading-tight">Parasite</h4>
+    <div class="flex gap-2 mt-2">
+    <span class="bg-primary-container/10 text-primary px-2 py-0.5 rounded-full text-[10px] font-label-sm uppercase">Thriller</span>
+    </div>
+    </div>
+    </div>
+    </div>
+
+    <!-- Movie Card 4 -->
+    <div class="min-w-[260px] sm:min-w-[280px] max-w-[280px] snap-start active-scale flex-shrink-0">
+    <div class="bg-surface-variant rounded-lg overflow-hidden relative group h-full flex flex-col">
+    <div class="relative h-72 w-full overflow-hidden">
+    <img alt="The Grand Budapest Hotel" class="w-full h-full object-cover" data-alt="A whimsical and symmetrically composed shot of a pastel pink architectural marvel inspired by Wes Anderson's style. The lighting is soft and flat, creating a storybook aesthetic. Colors are predominantly soft pinks, oranges, and mint greens, embodying an organic and charming modernist feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCE4eWW2uNqxXjDdmuiAWZLSwadfe6X4FV-1y62HP24mDlm6KBAnpwQrjlgSDfowfWYDbQqnzkJoCg3lzHVjHtcC-nz8KOkP7v7SqJ21kag-zAp4BmcA3UJtpltYHOtlbc5RfF5WJt9CBGKhbtSPQ7yvcmldRFU5hheWiI5ngjv6EEIR2vtV4NFfQU9i6HLbI7UqJo_BvdpksEQAI-B-TNvfLj2EPZt2hDyLFyGgIrhV9FpzQ76aNyxL0LeUq5w3l3sU-v9oYsfNg"/>
+    <div class="absolute top-3 right-3 glass-overlay px-3 py-1 rounded-full flex items-center gap-1">
+    <span class="material-symbols-outlined text-primary text-[16px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+    <span class="font-label-sm text-on-surface">85% Match</span>
+    </div>
+    </div>
+    <div class="p-4 bg-surface-variant flex-grow flex flex-col justify-between">
+    <h4 class="font-title-md text-on-surface leading-tight">Grand Budapest Hotel</h4>
+    <p class="text-on-surface-variant text-label-sm mt-1">Recommended by Chloe</p>
+    </div>
+    </div>
+    </div>
+
+    <!-- Movie Card 5 -->
+    <div class="min-w-[260px] sm:min-w-[280px] max-w-[280px] snap-start active-scale flex-shrink-0">
+    <div class="bg-surface-variant rounded-lg overflow-hidden relative group h-full flex flex-col">
+    <div class="relative h-72 w-full overflow-hidden">
+    <img alt="Portrait of a Lady on Fire" class="w-full h-full object-cover" data-alt="A poetic and artistic cinematic visual featuring two figures by a windswept coastline at dusk. The lighting is natural and evocative, with deep teal oceans and warm golden hour light. The style is painterly and organic, focusing on emotion and cinematic beauty in a modern light-mode context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAj6HZD1c0cOwrsaAyEI3m-i3yZQgQcD_ByziaAdQebNX-igYg9gXmmKLS3vizKjxtvP9lFsqGa3qBEGX1Wh-XgM5m9ufAG52ljEwudzvo5zrg5arB3TftEeBjOMScfiSfWg46Uf-69NlvV2CzgCjIXqEQz3XKPDHhcKCRdf45rXbhiXYyljsSQ9SMp92WZvc2EYgUXQn43gik_YDi4PxrV048VafPG59_bYZXo-LKip5PgPIXa2eT4Q8vGmqL5MVHNv-lfgMXrDA"/>
+    <div class="absolute top-3 right-3 glass-overlay px-3 py-1 rounded-full flex items-center gap-1">
+    <span class="material-symbols-outlined text-primary text-[16px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+    <span class="font-label-sm text-on-surface">94% Match</span>
+    </div>
+    </div>
+    <div class="p-4 bg-surface-variant flex-grow flex flex-col justify-between">
+    <h4 class="font-title-md text-on-surface leading-tight">Lady on Fire</h4>
+    <div class="flex gap-2 mt-2">
+    <span class="bg-primary-container/10 text-primary px-2 py-0.5 rounded-full text-[10px] font-label-sm uppercase">Romance</span>
+    </div>
+    </div>
+    </div>
+    </div>
+  </div>
+</div>
+</main>
+
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 rounded-t-lg bg-surface-container-low shadow-[0_-4px_12px_rgba(8,28,21,0.08)] flex justify-around items-center px-4 pb-4 pt-2">
+<!-- Dashboard Item (Active) -->
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-5 py-1.5 active-scale group" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</a>
+<!-- Blend Item -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1.5 active-scale hover:bg-surface-container-highest rounded-full transition-colors" href="../create_watch_room/code.html">
+<span class="material-symbols-outlined">movie_filter</span>
+<span class="font-label-sm text-label-sm">Blend</span>
+</a>
+<!-- History Item -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1.5 active-scale hover:bg-surface-container-highest rounded-full transition-colors" href="../room_history/code.html">
+<span class="material-symbols-outlined">history</span>
+<span class="font-label-sm text-label-sm">History</span>
+</a>
+<!-- Profile Item -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1.5 active-scale hover:bg-surface-container-highest rounded-full transition-colors" href="../my_profile/code.html">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a>
+</nav>
+
+<!-- Micro-interaction Scripts -->
+<script>
+        document.querySelectorAll('.active-scale').forEach(button => {
+            button.addEventListener('mousedown', () => {
+                button.classList.add('scale-95');
+            });
+            button.addEventListener('mouseup', () => {
+                button.classList.remove('scale-95');
+            });
+            button.addEventListener('mouseleave', () => {
+                button.classList.remove('scale-95');
+            });
+        });
+
+        // Simple scroll listener to shrink/hide top bar shadow
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 10) {
+                header.classList.add('shadow-md');
+            } else {
+                header.classList.remove('shadow-md');
+            }
+        });
+
+        // Horizontal slider control logic
+        const slider = document.getElementById('movie-slider');
+        const leftBtn = document.getElementById('slide-left-btn');
+        const rightBtn = document.getElementById('slide-right-btn');
+
+        if (slider && leftBtn && rightBtn) {
+            // Scroll distance roughly equals one movie card width + gap
+            const scrollAmount = 300; 
+
+            leftBtn.addEventListener('click', () => {
+                slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            });
+
+            rightBtn.addEventListener('click', () => {
+                slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            });
+        }
+    </script>
+</body></html>
