@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mb</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              background: '#000000',
+              surface: '#121212',
+              'surface-bright': '#1C1C1C',
+              'surface-container-lowest': '#0A0A0A',
+              'surface-container-low': '#1A1A1A',
+              'surface-container': '#242424',
+              'surface-container-high': '#2D2D2D',
+              'surface-container-highest': '#363636',
+              'on-background': '#FFFFFF',
+              'on-surface': '#FFFFFF',
+              'on-surface-variant': '#FFDEDE',
+              'deep-forest': '#0B1A0F',
+              primary: '#FF0B55',
+              'primary-container': '#CF0F47',
+              'on-primary': '#FFFFFF',
+              'on-primary-container': '#FFFFFF',
+              'secondary-container': '#FF0B55',
+              'on-secondary-container': '#FFFFFF',
+              'surface-variant': '#2A141A',
+              outline: '#4A3B3E',
+              'outline-variant': '#FFDEDE',
+              secondary: '#CF0F47',
+              'on-secondary': '#FFFFFF',
+              tertiary: '#FF0B55',
+              'tertiary-container': '#1A1A1A',
+              'on-tertiary': '#FFFFFF',
+              'on-tertiary-container': '#FFFFFF',
+              error: '#FF0B55',
+              'error-container': '#4A0012',
+              'on-error': '#FFFFFF',
+              'on-error-container': '#FFDAD6',
+              'inverse-surface': '#FFDEDE',
+              'inverse-on-surface': '#000000',
+              'inverse-primary': '#FF0B55',
+              'primary-fixed': '#FFDADF',
+              'primary-fixed-dim': '#FFB3BE',
+              'on-primary-fixed-variant': '#930022',
+              'on-secondary-fixed-variant': '#680014',
+            },
+            borderRadius: {
+              DEFAULT: '1rem',
+              lg: '2rem',
+              xl: '3rem',
+              full: '9999px',
+            },
+            spacing: {
+              'margin-desktop': '2rem',
+              'stack-lg': '1.5rem',
+              'stack-sm': '0.5rem',
+              gutter: '1rem',
+              'stack-md': '1rem',
+              'margin-mobile': '1rem',
+            },
+            fontFamily: {
+              'label-sm': ['Inter'],
+              'headline-lg-mobile': ['Plus Jakarta Sans'],
+              'body-md': ['Inter'],
+              'headline-lg': ['Plus Jakarta Sans'],
+              'title-md': ['Plus Jakarta Sans'],
+            },
+            fontSize: {
+              'label-sm': ['12px', { lineHeight: '16px', letterSpacing: '0.5px', fontWeight: '500' }],
+              'headline-lg-mobile': ['28px', { lineHeight: '36px', fontWeight: '700' }],
+              'body-md': ['16px', { lineHeight: '24px', fontWeight: '400' }],
+              'headline-lg': ['32px', { lineHeight: '40px', fontWeight: '700' }],
+              'title-md': ['18px', { lineHeight: '24px', fontWeight: '600' }],
+            },
+          },
+        },
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

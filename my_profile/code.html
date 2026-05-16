@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    // Pozadine - tvoja čista crna (#000000) i tamne bioskopske nijanse uglja
+                    "background": "#000000", 
+                    "surface": "#121212", // Tamna osnova za komponente
+                    "surface-bright": "#1C1C1C", 
+                    "surface-container-lowest": "#0A0A0A",
+                    "surface-container-low": "#1A1A1A", // Kartice pre nego što ih selektuješ
+                    "surface-container": "#242424", 
+                    "surface-container-high": "#2D2D2D",
+                    "surface-container-highest": "#363636",
+                    
+                    // Tekstovi - Čista bela i tvoja nežna svetlo-roze (#FFDEDE) za opise i manji tekst
+                    "on-background": "#FFFFFF",
+                    "on-surface": "#FFFFFF",
+                    "on-surface-variant": "#FFDEDE", // TVOJA BOJA: daje prelepu toplinu tekstovima u mraku
+                    "deep-forest": "#FFFFFF", // Glavni naslov
+                    
+                    // Primarna akcentna boja - Tvoja neon jarka roze-crvena (#FF0B55) za glavno dugme za nastavak
+                    "primary": "#FF0B55", 
+                    "primary-container": "#CF0F47", // TVOJA BOJA: bogata tamnija crvena za hover efekat dugmeta
+                    "on-primary": "#FFFFFF",
+                    "on-primary-container": "#FFFFFF",
+                    
+                    // Sekundarna i selekciona boja - Aktivno stanje svetli u punom neon sjaju
+                    "secondary-container": "#FF0B55", // Kada se kartica selektuje, sija jarko roze-crveno
+                    "on-secondary-container": "#FFFFFF",
+                    "surface-variant": "#2A141A", // Blagi crvenkasti sjaj u pozadini neaktivne kartice na hover
+                    
+                    // Konture i granice elemenata (takođe prožete tvojom svetlom nijansom)
+                    "outline": "#4A3B3E",
+                    "outline-variant": "#FFDEDE", // Svetle konture gde zatrebaju
+                    
+                    // Pomoćne nijanse uklopljene u estetiku
+                    "secondary": "#CF0F47",
+                    "on-secondary": "#FFFFFF",
+                    "tertiary": "#FF0B55",
+                    "tertiary-container": "#1A1A1A",
+                    "on-tertiary": "#FFFFFF",
+                    "on-tertiary-container": "#FFFFFF",
+                    "error": "#FF0B55",
+                    "error-container": "#4A0012",
+                    "on-error": "#FFFFFF",
+                    "on-error-container": "#FFDAD6",
+                    "inverse-surface": "#FFDEDE",
+                    "inverse-on-surface": "#000000",
+                    "inverse-primary": "#FF0B55",
+                    "primary-fixed": "#FFDADF",
+                    "primary-fixed-dim": "#FFB3BE",
+                    "on-primary-fixed-variant": "#930022",
+                    "on-secondary-fixed-variant": "#680014"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "2rem",
+                    "stack-lg": "1.5rem",
+                    "stack-sm": "0.5rem",
+                    "gutter": "1rem",
+                    "stack-md": "1rem",
+                    "margin-mobile": "1rem"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "title-md": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-nav-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #bec9c0; border-radius: 10px; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen pb-24">
+<!-- Top App Bar -->
+<header class="sticky top-0 z-50 bg-surface-container-low shadow-sm px-margin-mobile py-stack-sm flex justify-between items-center w-full rounded-b-lg">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container overflow-hidden">
+<img alt="User profile photo" class="w-full h-full object-cover" data-alt="A high-quality close-up studio portrait of a friendly young man with a warm smile, set against a soft nature-inspired mint green background. The lighting is bright and airy, reflecting a professional yet approachable aesthetic. The image follows a modern organic modernist style with high clarity and balanced color saturation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRndUAMi4q94yaZH8R30nGI-CD2EHGhE21wrNywN1sgRlnkZIotfp3uX1r1wcyxjT4Jl0uoitIDaoFCc1y94DeRuBNZ8DgHF42pJWxl-swHFEONgOqOmkHIf59KTsnTGEdv-3A4UfYb6ZtxhJNLBUwZZDOf6SgapZjwUeLkfEVXzbLb2GgpV42Jjw18KGC6FvwTAQzHb5YO3ZJg7RBqDXTbsa_tP8gC21ROxTLuDQ4MpRp92vvyVW3AAdePqsjxpSYMEtaJ0ndyA"/>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">MovieBlend</h1>
+</div>
+<button class="p-2 rounded-full hover:bg-surface-container-highest transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+</header>
+<main class="max-w-4xl mx-auto px-margin-mobile pt-stack-lg space-y-8">
+<!-- Profile Hero Section -->
+<section class="bg-surface-variant rounded-lg p-6 flex flex-col md:flex-row items-center gap-6 shadow-sm">
+<div class="relative">
+<div class="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-white shadow-md overflow-hidden bg-white">
+<img alt="Alex Rivers" class="w-full h-full object-cover" data-alt="A detailed profile photograph of a creative professional in a bright, modern studio. The background features subtle organic textures in soft green and white tones. The subject is wearing a neutral-colored linen shirt, embodying a cozy-tech and nature-inspired aesthetic. High-key lighting highlights smooth skin textures and friendly expressions." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXXWqGQRsxO5uTU4ohxx3g2tBmZpOcxP3Rqgh-nDuNcfq62Zt-cJHufENDL7pTVIM7AWnUeS4RUX2IFD28s-i726P3zxEsyxl7n66LCOdAhj8vPwHckU5vq8bXzfDDmnaec1YcbwiAdxJe2clueiHX3DM-FgsIm26hvllXB08B-tLSQ6QWFYilWXe8BFd_sxU3NgHo4QVo4llRg5EKCgc8k5_fIlpjTlwA8OV4m_2xm9WTNEQlw52D2ptKMZurtADY-SCQcaMOWw"/>
+</div>
+<div class="absolute bottom-1 right-1 bg-primary text-on-primary w-8 h-8 rounded-full flex items-center justify-center shadow-lg border-2 border-white">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+<div class="text-center md:text-left space-y-2">
+<h2 class="font-headline-lg text-headline-lg text-deep-forest">Alex Rivers</h2>
+<div class="flex flex-wrap justify-center md:justify-start gap-4">
+<div class="text-center">
+<span class="block font-bold text-headline-lg-mobile text-primary">482</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Movies Watched</span>
+</div>
+<div class="w-px h-10 bg-outline-variant self-center hidden md:block"></div>
+<div class="text-center">
+<span class="block font-bold text-headline-lg-mobile text-primary">12</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Watch Rooms</span>
+</div>
+</div>
+</div>
+<div class="ml-auto flex flex-col gap-2 w-full md:w-auto">
+<button class="bg-deep-forest text-white px-6 py-3 rounded-full font-semibold flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-95 transition-all">
+<span class="material-symbols-outlined">add</span>
+                   <p style="color: #CF0F47;">  Manually Add Movie </p>
+                </button>
+<button class="bg-primary-container text-on-primary-container px-6 py-3 rounded-full font-semibold flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-95 transition-all">
+<span class="material-symbols-outlined">sync</span>
+                    Resync IMDb
+                </button>
+</div>
+</section>
+<!-- Friends Section (Asymmetric / Organic) -->
+<section class="space-y-4">
+<div class="flex justify-between items-center">
+<h3 class="font-title-md text-title-md text-deep-forest">My Friends</h3>
+<button class="text-primary text-label-sm font-semibold hover:underline">View All</button>
+</div>
+<div class="flex gap-4 overflow-x-auto pb-4 custom-scrollbar">
+<!-- Friend Bubble -->
+<div class="flex-shrink-0 flex flex-col items-center gap-2">
+<div class="w-16 h-16 rounded-full p-1 border-2 border-primary-container">
+<img class="w-full h-full object-cover rounded-full" data-alt="A vibrant and clear portrait of a young woman with a joyful expression. The background is a blurred soft-focus garden with lush green leaves, matching the organic modernist brand colors. The lighting is natural and golden, creating a warm and welcoming atmosphere. Her face is centered in a high-quality circular composition." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAddMX6GPyESTnj9ph6Cc1KRggESTnFKQrl7YywU_qXFs2vIon6lAV2CLiMqHLYqdWc2NfR-5zTdiijPiiS-QTObwV3bueWNHkbLlJyuvJlj7ml566Tk3b0XbCoMxK6gdYKSM1O_wR3b8pHjq66iUB3al3Mdc3Rg_ScfUELhcgmrUQkNAQNcRHcUrJcPDHr-3qyz8mJZHA5AQFWvJoQxHDj6tV7Fmwd_QOvxlm8xeq-6Upl_gw7zSSrZwuC5qs0lM6VMZMLMxdzgQ"/>
+</div>
+<span class="text-label-sm font-medium">Sarah M.</span>
+</div>
+<!-- Friend Bubble -->
+<div class="flex-shrink-0 flex flex-col items-center gap-2">
+<div class="w-16 h-16 rounded-full p-1 border-2 border-transparent">
+<img class="w-full h-full object-cover rounded-full" data-alt="Close-up headshot of a smiling man with spectacles in a clean, minimalist setting. The soft daylight illuminates his features against a warm, pale green wall. The aesthetic is modern and professional, fitting into a cozy-tech social platform. The colors are natural and soothing, with a high-key exposure." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvo3OsTasuibKmAwBP9wwV-me-XSHgwKgnc2r379ZMjXKFEkX9KrGVz1EGn8Oh1r9SD2KzWnPaeNWxQ6cBbB7H9zA74j_D9wU6ZhBR8Tk-rdVwYOBv3lZ6zWqHGLxZh65rgiWG2vMDLfc45LK0-B8dznOrnUnJYM83Hi9XyHJkUPBMsRMT10YWYUeC0zVDD6X6nxZBQcKb5yudL2QSEVguFNPF12cLkk0Oyc8UM0js1vKfK1SkbZ8tMstoT-RKwC2GSyAyOZYrVQ"/>
+</div>
+<span class="text-label-sm font-medium">David K.</span>
+</div>
+<!-- Friend Bubble -->
+<div class="flex-shrink-0 flex flex-col items-center gap-2">
+<div class="w-16 h-16 rounded-full p-1 border-2 border-transparent">
+<img class="w-full h-full object-cover rounded-full" data-alt="A beautiful high-resolution portrait of a woman with a calm and serene expression. She is set against a soft, textured background with subtle mint and forest green accents. The lighting is diffused and professional, highlighting a sophisticated yet friendly brand personality. The overall tone is organic and human-centered." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCH7V9Wni65-piFUr-WoTZBk-_GEF-mGlDl1K-LgUNZeI2RhxhUu3DdFWxVn2-F2nvTr2gjtOQGcp1Y-19LbpZE7YCR-EhUaIH8fDWofAz9yjM4B-CTQ7nOStjd1VOwL4Pph2Ey21aO0Gg7XLZXBxxWp85uR5WznXYxJqichD0nIu0yFaSRzBUa9jDY-a3RvzsynVsbUa3xQUsV5_lYSP7EZd3TN_rQeTbgk97vWwqXw9TM8xRG0HZDf07HLaeiWgGfEj61vUckpA"/>
+</div>
+<span class="text-label-sm font-medium">Elena R.</span>
+</div>
+<!-- Add Friend -->
+<button class="flex-shrink-0 flex flex-col items-center gap-2">
+<div class="w-16 h-16 rounded-full bg-surface-container-highest border-2 border-dashed border-outline-variant flex items-center justify-center text-outline">
+<span style="color: white;" class="material-symbols-outlined">person_add</span>
+</div>
+<span class="text-label-sm font-medium">Add New</span>
+</button>
+</div>
+</section>
+<!-- Searchable Movie Database (Bento Style Layout) -->
+<section class="space-y-6">
+<div class="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
+<h3 class="font-title-md text-title-md text-deep-forest">My Movie Database</h3>
+<div class="relative w-full sm:w-64">
+<input class="w-full bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary-container transition-all" placeholder="Search movies..." type="text"/>
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
+</div>
+</div>
+<!-- Bento Grid of Movies -->
+<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+<!-- Movie Card 1 -->
+<div class="group relative aspect-[2/3] rounded-lg overflow-hidden bg-surface-container shadow-sm hover:shadow-md transition-all duration-300">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A cinematic movie poster style image featuring a mysterious figure in a neon-lit urban environment. The color palette consists of deep forest greens, emeralds, and soft mint highlights. The lighting is dramatic with moody shadows, emphasizing a sci-fi or thriller atmosphere. The layout is clean and artistic, suitable for a premium movie database." src="https://lh3.googleusercontent.com/aida-public/AB6AXuALwQ2BqwEwRksosMuGrUoB0edXgqrNMkK73pS7ka_0CBXVY0eRF5R2sYenCURx7KUB-esK2klTAPrcrZk9JKWc1GSC3S3Q0rXD0V7fDcw1OlgiPakON8moKwV1lD20UPxaNHYqDrEaSrci9dGfo1KSmHauJd1V9a6x-mSkd0fzWeecaGB4yoMS6oy-lyu4FURHarPMwq848niLXNYqig7k8NcC0uynri5mXPXcLaaXHgd32bvvsif8vrUzDoP_OuD_7hQZVxz7ig"/>
+<div class="absolute inset-0 bg-gradient-to-t from-deep-forest/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
+<h4 class="text-white font-bold text-title-md leading-tight">Emerald City</h4>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-secondary-fixed text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-white text-xs font-bold">4.8</span>
+</div>
+</div>
+<div class="absolute top-3 left-3 bg-surface/90 backdrop-blur px-2 py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-primary text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-[12px] font-bold text-deep-forest">4.8</span>
+</div>
+</div>
+<!-- Movie Card 2 -->
+<div class="group relative aspect-[2/3] rounded-lg overflow-hidden bg-surface-container shadow-sm hover:shadow-md transition-all duration-300">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A stylized cinematic landscape of a rolling forest in morning mist, presented as a movie poster. The colors are dominated by various shades of green and soft whites, matching a serene and organic aesthetic. The lighting is soft and diffused, creating a peaceful and artistic visual for a drama film entry in a digital library." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgDhz5TFR2bSaZj2LmLsmGe4AfQvb3HZAX4ZGcgza9d8LpeWPum6o7M_buaTKe4pJx-fEyfFSgyHF9_K2dbgXEJRKmIQceNhqskvFkL0ysKDKDRWLEHZZZidi4ZKp-EyOD1AE3ZcLyOyX8O5eZ9N84sPZJnS_-FXaz9aWaPIMMLtnTPux6P1WS_wETpR892adeD47gzAiAkUkDrMe5nwgFO7Co1FCQijnb6P4o-vfdqAyH1tRVt4ghKTh6wwOw0zbYl-ywBIBzCg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-deep-forest/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
+<h4 class="text-white font-bold text-title-md leading-tight">The Quiet Valley</h4>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-secondary-fixed text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-white text-xs font-bold">4.2</span>
+</div>
+</div>
+<div class="absolute top-3 left-3 bg-surface/90 backdrop-blur px-2 py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-primary text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-[12px] font-bold text-deep-forest">4.2</span>
+</div>
+</div>
+<!-- Movie Card 3 -->
+<div class="group relative aspect-[2/3] rounded-lg overflow-hidden bg-surface-container shadow-sm hover:shadow-md transition-all duration-300">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="An abstract cinematic visual of swirling light and shadows in deep emerald and black tones. The image suggests a high-energy action or mystery movie theme. The lighting features sharp contrasts and glowing edges, maintaining an organic modernist design language. The composition is dynamic and eye-catching for a digital social interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBv5tjvIhMlybSZp2cbgH4mZsbvW1P34WGeIGDzhCnsQvAuTxxTePYOG9EC0JkLJBcF6NsNX5Vko1b1lbx7wBlnknapsmnt7I8XD2cWyQPNK315Ts7L9I2ngHMW2BJ8fPezs5sX7SSQ8jv3hzPXt15xEiayXiUDXnnbvq2w1Jrgux3yYtm033GkCO-GxssmgfeQ4gJEMlhx3rxwgJ_mhyDlnBCxX7vgf0vJSb5pzkQBd4xMIBjAYN2fx-Z7ey6keY43BDT6snpLWg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-deep-forest/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
+<h4 class="text-white font-bold text-title-md leading-tight">Shadow Play</h4>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-secondary-fixed text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-white text-xs font-bold">4.5</span>
+</div>
+</div>
+<div class="absolute top-3 left-3 bg-surface/90 backdrop-blur px-2 py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-primary text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-[12px] font-bold text-deep-forest">4.5</span>
+</div>
+</div>
+<!-- Movie Card 4 -->
+<div class="group relative aspect-[2/3] rounded-lg overflow-hidden bg-surface-container shadow-sm hover:shadow-md transition-all duration-300">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A vintage-inspired cinematic shot of an old cinema projector in a dim, atmospheric room. Dust motes dance in a single beam of light. The colors are warm with deep forest greens in the shadows and soft cream highlights. This represents a classic movie entry in a personal collection, following a sophisticated and cozy-tech aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlN00T5pn5UbCiDzUhla5KATKbrwWImXdlkRP0lkxVARv5NI12m0Ui6LQNgqs3FY9msyZ38et1Vco1f-xtS-PJZjQAd_tLK2OTNg5DqmNXzKTXeOiiIWaTQdASLE6krCH9NOIbK-yp5FDfEMgGNq-mByMM-ezr-41FdKRrY1ctgkmF4vT75RU2_O4KLeL9PrH1k8YCZqR0s-YgHA9b-IgcT2HoawaGF86ZbhYqQwMUkwcVJKdXhqaAj2YK7b_tWM053jYyAEoscA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-deep-forest/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
+<h4 class="text-white font-bold text-title-md leading-tight">Golden Reel</h4>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-secondary-fixed text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-white text-xs font-bold">3.9</span>
+</div>
+</div>
+<div class="absolute top-3 left-3 bg-surface/90 backdrop-blur px-2 py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-primary text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-[12px] font-bold text-deep-forest">3.9</span>
+</div>
+</div>
+<!-- Movie Card 5 -->
+<div class="group relative aspect-[2/3] rounded-lg overflow-hidden bg-surface-container shadow-sm hover:shadow-md transition-all duration-300 md:hidden lg:block">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A bright and colorful close-up of a classic theater curtain in a soft, minty green hue instead of red, creating a unique brand-consistent look. The lighting is warm and dramatic, signifying the start of a film. The image is crisp and clear, perfectly aligned with a gamified social cinema experience." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlwCDUyPQawl1xSJeqwCK3J05TNrlmrtMTkwMb6TcOpldeO2sWQoNawSA3DyfszUhfPMIvdH8Sgx61y1MwfQm_YwUxdfRaK6sU89WlrA44BtZNQmE28GLboQQVj7RoNdKjCMdVAxtyU40pM9gtper2x3DVJ8N40fio7GiflOYqxvS-6Gg6bTKrzprptIyalEFbfH-i7tUKTic5mbw8mNZfIY3j33TuRWSXe4LaIDVlOY6l9hWKKApdMpe3tQc_C9xZXFWTqvQ6KA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-deep-forest/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
+<h4 class="text-white font-bold text-title-md leading-tight">Curtain Call</h4>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-secondary-fixed text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-white text-xs font-bold">4.7</span>
+</div>
+</div>
+<div class="absolute top-3 left-3 bg-surface/90 backdrop-blur px-2 py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-primary text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-[12px] font-bold text-deep-forest">4.7</span>
+</div>
+</div>
+<!-- Empty "Add More" Card -->
+<div class="aspect-[2/3] rounded-lg border-2 border-dashed border-outline-variant flex flex-col items-center justify-center gap-2 text-outline-variant hover:border-primary-container hover:text-primary-container transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-[48px] group-hover:scale-110 transition-transform">add_circle</span>
+<span class="font-semibold text-label-sm">Explore More</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full bg-surface shadow-[0_-4px_12px_rgba(8,28,21,0.08)] flex justify-around items-center px-4 pb-4 pt-2 z-50 rounded-t-lg">
+<!-- Dashboard -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1.5 hover:bg-surface-container-highest transition-all duration-300 ease-out active:scale-90" href="../dashboard/code.html">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</a>
+<!-- Blend -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1.5 hover:bg-surface-container-highest transition-all duration-300 ease-out active:scale-90" href="../create_watch_room/code.html">
+<span class="material-symbols-outlined">movie_filter</span>
+<span class="font-label-sm text-label-sm">Blend</span>
+</a>
+<!-- History -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1.5 hover:bg-surface-container-highest transition-all duration-300 ease-out active:scale-90" href="../room_history/code.html">
+<span class="material-symbols-outlined">history</span>
+<span class="font-label-sm text-label-sm">History</span>
+</a>
+<!-- Profile (Active) -->
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-5 py-1.5 transition-all duration-300 ease-out active:scale-90" href="#">
+<span class="material-symbols-outlined active-nav-icon">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for movie cards
+        document.querySelectorAll('.group').forEach(card => {
+            card.addEventListener('mousedown', () => card.style.transform = 'scale(0.98)');
+            card.addEventListener('mouseup', () => card.style.transform = 'scale(1)');
+            card.addEventListener('mouseleave', () => card.style.transform = 'scale(1)');
+        });
+    </script>
+</body></html>

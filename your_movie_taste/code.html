@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    // Pozadine - tvoja čista crna (#000000) i tamne bioskopske nijanse uglja
+                    "background": "#000000", 
+                    "surface": "#121212", // Tamna osnova za komponente
+                    "surface-bright": "#1C1C1C", 
+                    "surface-container-lowest": "#0A0A0A",
+                    "surface-container-low": "#1A1A1A", // Kartice pre nego što ih selektuješ
+                    "surface-container": "#242424", 
+                    "surface-container-high": "#2D2D2D",
+                    "surface-container-highest": "#363636",
+                    
+                    // Tekstovi - Čista bela i tvoja nežna svetlo-roze (#FFDEDE) za opise i manji tekst
+                    "on-background": "#FFFFFF",
+                    "on-surface": "#FFFFFF",
+                    "on-surface-variant": "#FFDEDE", // TVOJA BOJA: daje prelepu toplinu tekstovima u mraku
+                    "deep-forest": "#FFFFFF", // Glavni naslov
+                    
+                    // Primarna akcentna boja - Tvoja neon jarka roze-crvena (#FF0B55) za glavno dugme za nastavak
+                    "primary": "#FF0B55", 
+                    "primary-container": "#CF0F47", // TVOJA BOJA: bogata tamnija crvena za hover efekat dugmeta
+                    "on-primary": "#FFFFFF",
+                    "on-primary-container": "#FFFFFF",
+                    
+                    // Sekundarna i selekciona boja - Aktivno stanje svetli u punom neon sjaju
+                    "secondary-container": "#FF0B55", // Kada se kartica selektuje, sija jarko roze-crveno
+                    "on-secondary-container": "#FFFFFF",
+                    "surface-variant": "#2A141A", // Blagi crvenkasti sjaj u pozadini neaktivne kartice na hover
+                    
+                    // Konture i granice elemenata (takođe prožete tvojom svetlom nijansom)
+                    "outline": "#4A3B3E",
+                    "outline-variant": "#FFDEDE", // Svetle konture gde zatrebaju
+                    
+                    // Pomoćne nijanse uklopljene u estetiku
+                    "secondary": "#CF0F47",
+                    "on-secondary": "#FFFFFF",
+                    "tertiary": "#FF0B55",
+                    "tertiary-container": "#1A1A1A",
+                    "on-tertiary": "#FFFFFF",
+                    "on-tertiary-container": "#FFFFFF",
+                    "error": "#FF0B55",
+                    "error-container": "#4A0012",
+                    "on-error": "#FFFFFF",
+                    "on-error-container": "#FFDAD6",
+                    "inverse-surface": "#FFDEDE",
+                    "inverse-on-surface": "#000000",
+                    "inverse-primary": "#FF0B55",
+                    "primary-fixed": "#FFDADF",
+                    "primary-fixed-dim": "#FFB3BE",
+                    "on-primary-fixed-variant": "#930022",
+                    "on-secondary-fixed-variant": "#680014"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "2rem",
+                    "stack-lg": "1.5rem",
+                    "stack-sm": "0.5rem",
+                    "gutter": "1rem",
+                    "stack-md": "1rem",
+                    "margin-mobile": "1rem"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "title-md": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .option-card.active {
+            @apply border-2 border-primary bg-secondary-container text-on-secondary-container;
+        }
+        .option-card.active .icon-container {
+            @apply bg-primary text-on-primary;
+        }
+        .shimmer {
+            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 2.5s infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col items-center">
+<header class="w-full max-w-2xl px-margin-mobile py-stack-lg">
+<div class="flex flex-col gap-stack-sm">
+<div class="flex justify-between items-center text-label-sm font-label-sm text-outline">
+<span>Step 2 of 5</span>
+<span>Personalizing your den</span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[40%] rounded-full transition-all duration-700 ease-out relative">
+<div class="absolute inset-0 shimmer"></div>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow w-full max-w-2xl px-margin-mobile flex flex-col justify-center gap-stack-lg pb-32">
+<div class="space-y-stack-sm text-center md:text-left">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-surface">
+                What kind of movies make you feel at home?
+            </h1>
+<p class="text-on-surface-variant font-body-md opacity-80">
+                We'll use your cinematic taste to find the perfect Watch Room and shared pet for you.
+            </p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-gutter mt-stack-md" id="options-grid">
+<button class="option-card group flex items-center p-6 bg-surface-container-low hover:bg-surface-variant rounded-lg transition-all duration-300 text-left border-2 border-transparent active:scale-95" onclick="toggleOption(this)">
+<div class="icon-container w-14 h-14 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container mr-5 transition-colors duration-300">
+<span class="material-symbols-outlined text-3xl">sentiment_very_satisfied</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">Wholesome Comedies</h3>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Laughter and lightheartedness</p>
+</div>
+</button>
+<button class="option-card group flex items-center p-6 bg-surface-container-low hover:bg-surface-variant rounded-lg transition-all duration-300 text-left border-2 border-transparent active:scale-95" onclick="toggleOption(this)">
+<div class="icon-container w-14 h-14 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container mr-5 transition-colors duration-300">
+<span class="material-symbols-outlined text-3xl">search_insights</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">Cozy Mysteries</h3>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Intrigue with a soft touch</p>
+</div>
+</button>
+<button class="option-card group flex items-center p-6 bg-surface-container-low hover:bg-surface-variant rounded-lg transition-all duration-300 text-left border-2 border-transparent active:scale-95" onclick="toggleOption(this)">
+<div class="icon-container w-14 h-14 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container mr-5 transition-colors duration-300">
+<span class="material-symbols-outlined text-3xl">forest</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">Studio Ghibli Vibes</h3>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Whimsical, organic animation</p>
+</div>
+</button>
+<button class="option-card group flex items-center p-6 bg-surface-container-low hover:bg-surface-variant rounded-lg transition-all duration-300 text-left border-2 border-transparent active:scale-95" onclick="toggleOption(this)">
+<div class="icon-container w-14 h-14 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container mr-5 transition-colors duration-300">
+<span class="material-symbols-outlined text-3xl">local_cafe</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">Indie Dramas</h3>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Heartfelt, human stories</p>
+</div>
+</button>
+</div>
+</main>
+<footer class="fixed bottom-0 w-full max-w-2xl bg-gradient-to-t from-background via-background to-transparent px-margin-mobile pb-10 pt-6">
+<button style="color: #CF0F47;" class="w-full py-4 px-8 rounded-full bg-outline-variant text-on-surface font-title-md text-title-md shadow-lg transition-all duration-300 opacity-50 cursor-not-allowed" disabled="" id="submit-btn">
+                Continue to My Dashboard
+        </button>
+</footer>
+<div class="fixed -bottom-20 -left-20 w-80 h-80 bg-surface-variant rounded-full blur-[100px] opacity-40 pointer-events-none -z-10"></div>
+<div class="fixed top-20 -right-20 w-64 h-64 bg-primary-container rounded-full blur-[120px] opacity-10 pointer-events-none -z-10"></div>
+<script>
+        let selectedCount = 0;
+        const submitBtn = document.getElementById('submit-btn');
+
+        function toggleOption(element) {
+            element.classList.toggle('active');
+            
+            // Check how many are selected
+            const actives = document.querySelectorAll('.option-card.active');
+            selectedCount = actives.length;
+
+            if (selectedCount > 0) {
+                submitBtn.disabled = false;
+                // Skidamo inline stil za boju ako je postojao da bi Tailwind preuzeo kontrolu
+                submitBtn.removeAttribute('style'); 
+                submitBtn.classList.remove('bg-outline-variant', 'opacity-50', 'cursor-not-allowed');
+                // Aktivno dugme dobija tvoju jarku crvenu (bg-primary) i beli tekst (text-white)
+                submitBtn.classList.add('bg-primary', 'text-white', 'opacity-100', 'cursor-pointer', 'scale-100', 'hover:scale-[1.02]', 'active:scale-95');
+            } else {
+                submitBtn.disabled = true;
+                submitBtn.style.color = '#CF0F47'; // Vraćamo boju za disabled stanje
+                submitBtn.classList.add('bg-outline-variant', 'opacity-50', 'cursor-not-allowed');
+                submitBtn.classList.remove('bg-primary', 'text-white', 'opacity-100', 'cursor-pointer', 'hover:scale-[1.02]', 'active:scale-95');
+            }
+        }
+
+        submitBtn.addEventListener('click', () => {
+            if (!submitBtn.disabled) {
+                // Pokrećemo animaciju učitavanja na dugmetu
+                // Sada su i tekst i krug čisto beli na jarkoj crvenoj pozadini (savršen kontrast)
+                submitBtn.innerHTML = `
+                    <span class="flex items-center justify-center gap-2 text-white">
+                        <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Preparing your den...
+                    </span>
+                `;
+                
+                // Vrti 1.5 sekundu i onda direktno preusmerava bez iskakanja alerta
+                setTimeout(() => {
+                    window.location.href = '../dashboard/code.html'; 
+                }, 1500);
+            }
+        });
+    </script>
+</body></html>

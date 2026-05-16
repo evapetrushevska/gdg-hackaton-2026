@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MovieBlend - Watch Room Lobby</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Use the provided Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    // Pozadine - tvoja čista crna (#000000) i tamne bioskopske nijanse uglja
+                    "background": "#000000", 
+                    "surface": "#121212", // Tamna osnova za komponente
+                    "surface-bright": "#1C1C1C", 
+                    "surface-container-lowest": "#0A0A0A",
+                    "surface-container-low": "#1A1A1A", // Kartice pre nego što ih selektuješ
+                    "surface-container": "#242424", 
+                    "surface-container-high": "#2D2D2D",
+                    "surface-container-highest": "#363636",
+                    
+                    // Tekstovi - Čista bela i tvoja nežna svetlo-roze (#FFDEDE) za opise i manji tekst
+                    "on-background": "#FFFFFF",
+                    "on-surface": "#FFFFFF",
+                    "on-surface-variant": "#FFDEDE", // TVOJA BOJA: daje prelepu toplinu tekstovima u mraku
+                    "deep-forest": "#FFFFFF", // Glavni naslov
+                    
+                    // Primarna akcentna boja - Tvoja neon jarka roze-crvena (#FF0B55) za glavno dugme za nastavak
+                    "primary": "#FF0B55", 
+                    "primary-container": "#CF0F47", // TVOJA BOJA: bogata tamnija crvena za hover efekat dugmeta
+                    "on-primary": "#FFFFFF",
+                    "on-primary-container": "#FFFFFF",
+                    
+                    // Sekundarna i selekciona boja - Aktivno stanje svetli u punom neon sjaju
+                    "secondary-container": "#FF0B55", // Kada se kartica selektuje, sija jarko roze-crveno
+                    "on-secondary-container": "#FFFFFF",
+                    "surface-variant": "#2A141A", // Blagi crvenkasti sjaj u pozadini neaktivne kartice na hover
+                    
+                    // Konture i granice elemenata (takođe prožete tvojom svetlom nijansom)
+                    "outline": "#4A3B3E",
+                    "outline-variant": "#FFDEDE", // Svetle konture gde zatrebaju
+                    
+                    // Pomoćne nijanse uklopljene u estetiku
+                    "secondary": "#CF0F47",
+                    "on-secondary": "#FFFFFF",
+                    "tertiary": "#FF0B55",
+                    "tertiary-container": "#1A1A1A",
+                    "on-tertiary": "#FFFFFF",
+                    "on-tertiary-container": "#FFFFFF",
+                    "error": "#FF0B55",
+                    "error-container": "#4A0012",
+                    "on-error": "#FFFFFF",
+                    "on-error-container": "#FFDAD6",
+                    "inverse-surface": "#FFDEDE",
+                    "inverse-on-surface": "#000000",
+                    "inverse-primary": "#FF0B55",
+                    "primary-fixed": "#FFDADF",
+                    "primary-fixed-dim": "#FFB3BE",
+                    "on-primary-fixed-variant": "#930022",
+                    "on-secondary-fixed-variant": "#680014"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "2rem",
+                    "stack-lg": "1.5rem",
+                    "stack-sm": "0.5rem",
+                    "gutter": "1rem",
+                    "stack-md": "1rem",
+                    "margin-mobile": "1rem"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "title-md": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .organic-shape {
+            border-radius: 60% 40% 70% 30% / 40% 50% 60% 50%;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #bec9c0;
+            border-radius: 10px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-24 font-body-md text-body-md">
+<!-- TopAppBar -->
+<header class="sticky top-0 z-50 bg-surface-container-low flex justify-between items-center w-full px-margin-mobile py-stack-sm shadow-sm">
+<div class="flex items-center gap-3">
+<img alt="User profile photo" class="w-10 h-10 rounded-full border-2 border-primary-fixed" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCE5Zt9t_oEjmvqDGGKeCAYBU366pVbCF4PPZyU_wQFgERWawnF-cr0LF5005TlyHafLmuvDpsi69nWONyEaufn3WH8ftAFPART_7JdXOe2mz-UfUH9VDKgjScguKbkNbMmrk5drKYQodndQAVhmztvR6Dj_Cw1wkkBqgu7ekog5o9hyvnu2eKFRfCm2FEL5y8Bv0hgWsaNftWstKavEPhDFZQJqfCaOBBci5Fy7xXoKP3yJT2SGrrIuWdrRAEAcDMHcO6a1an_xA"/>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary">MovieBlend</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-highest transition-all duration-200 active:scale-95">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+</header>
+<main class="px-margin-mobile pt-stack-md space-y-stack-lg">
+<!-- Room Pet & Consensus Status -->
+<section class="relative overflow-hidden bg-surface-variant p-6 rounded-lg shadow-sm border border-primary-fixed/20">
+<div class="flex flex-col items-center text-center space-y-4">
+<div class="organic-shape bg-primary-container/20 p-8 relative animate-pulse">
+<span class="material-symbols-outlined text-primary text-6xl" style="font-variation-settings: 'FILL' 1;">pets</span>
+<div class="absolute -top-2 -right-2 bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-sm font-label-sm shadow-sm">
+                        Hatching...
+                    </div>
+</div>
+<div>
+<h2 class="font-title-md text-title-md text-deep-forest mb-1">Waiting for consensus...</h2>
+<p class="text-on-surface-variant opacity-80">3/5 friends have voted for the room mascot.</p>
+</div>
+<!-- Progress Bar -->
+<div class="w-full bg-surface-container-highest h-3 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[60%] transition-all duration-1000 ease-out rounded-full shadow-[0_0_12px_rgba(11,105,71,0.3)]"></div>
+</div>
+</div>
+</section>
+<!-- Friends List & Pet Choices -->
+<section class="space-y-stack-sm">
+<h3 class="font-title-md text-title-md px-1">Room Members</h3>
+<div class="grid grid-cols-2 gap-gutter">
+<!-- User 1 -->
+<div class="flex items-center gap-3 p-3 bg-surface-container-low rounded-lg">
+<img class="w-10 h-10 rounded-full" data-alt="A friendly young woman with a warm smile, softly lit by golden hour sunlight, wearing casual modern attire in a cozy indoor setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1KSS1VwdIn8QaSmZ3F74G8fnN5g7dw_TD98PMG2yaOEdNyNEC0-gzqI7ub0EmgPsuRbYvMXWchfieyxegGuZ8PGXDDh-Lw3BLse-Fr5hdluezIai04xTLNslsWK_Wnaw240yYQJMtzuyig8W8PFuH-IV3UkDilmFt1rdYPvIrEMJi67qK5-LVPrspMsZkQoF1VGF6Hv1kswtdnnLvLLS3xrwXI6astVwxqaZPrzedMO3Mp1TD8fCm6cQXLxIRqvqBpICxfSTTqw"/>
+<div>
+<p class="font-title-md text-[14px]">Sarah</p>
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">eco</span>
+<span class="text-label-sm font-label-sm">Axolotl</span>
+</div>
+</div>
+</div>
+<!-- User 2 -->
+<div class="flex items-center gap-3 p-3 bg-surface-container-low rounded-lg">
+<img class="w-10 h-10 rounded-full" data-alt="A professional man in his 30s with a neat beard, looking directly at the camera with a confident yet approachable expression. Minimalist background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuArJgIkrmqNryTA2-2AgGf5eqK-cU7JW4uTHRp9RIm6BTfrqjEjApyaoT3U79WZoMWeVetpWDRQIaTSJtczNsANjXXrN7m1q6r-mmAczmSZPsXrMLKbummE648pDPPM5wneU7ZwlGy-jyskpkQkDAefwHLaxnhqNpzcly_-6dxLAXOm3LVatauxgr5hv8DVm9nlfU_HcXouJ-c--l72gUlJj6PhJwLl1fRT6ddTKASsJpWRAXuyO-x3ApE-DkUC8fLc6IBeGLXOJA"/>
+<div>
+<p class="font-title-md text-[14px]">Marcus</p>
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">cruelty_free</span>
+<span class="text-label-sm font-label-sm">Rabbit</span>
+</div>
+</div>
+</div>
+<!-- User 3 -->
+<div class="flex items-center gap-3 p-3 bg-surface-container-low rounded-lg ring-2 ring-primary">
+<img class="w-10 h-10 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMPfodnSaKr11yr7Nth3rNy_EBn6zU5XD6NCwnLp5kzbNIPM28M796dF45IDG-PxZbJev1O1nmIL5YbnLVrF1uAQHn-d_d8WovohMUZb2_MOtnkLv6_d2kD_V67rCJ7xOf7V2xNlDh0ka9iPRWAta69U6ECllwSCn5oY9pKbhlhG5PWBPTuosZysicaI5FdKCv5pcrldmp7K6Yz0SKEIhsdvZc7pCVgzEtnkazHhybus8d_kiMOROYPze2FAbQ10S0jdmBVQcqBA"/>
+<div>
+<p class="font-title-md text-[14px]">You</p>
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">eco</span>
+<span class="text-label-sm font-label-sm">Axolotl</span>
+</div>
+</div>
+</div>
+<!-- User 4 -->
+<div class="flex items-center gap-3 p-3 bg-surface-container-highest/50 rounded-lg opacity-60">
+<div class="w-10 h-10 rounded-full bg-surface-dim flex items-center justify-center">
+<span class="material-symbols-outlined text-outline">hourglass_empty</span>
+</div>
+<div>
+<p class="font-title-md text-[14px]">Elena</p>
+<p class="text-label-sm font-label-sm italic">Choosing...</p>
+</div>
+</div>
+</div>
+</section>
+<!-- The Definitive 5 Recommendations -->
+<section class="space-y-stack-md">
+<div class="flex justify-between items-end px-1">
+<div>
+<h3 class="font-headline-lg-mobile text-[22px] leading-tight text-deep-forest">The Definitive 5</h3>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Matched for your group</p>
+</div>
+<span class="material-symbols-outlined text-primary">auto_awesome</span>
+</div>
+<div class="space-y-4">
+<!-- Movie 1: Bento Style Large -->
+<div class="relative group overflow-hidden rounded-lg bg-surface-container h-64 shadow-sm hover:shadow-md transition-shadow">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A cinematic, low-angle shot of a glowing futuristic city at night, with neon reflections in puddles on the ground. Deep teals and vibrant greens dominate the palette, creating a moody, atmospheric science fiction vibe. Soft bokeh lights in the background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXGR2p-eTpGDrE8LVwJ3VPYyVy8Wy_Mf_mrs5QjAogDrf1gLwI4LYkQkWOzFE2i5sUPlcP9qkx5RB7NsLq3LqD42xv87L4vVkcOGhtPumpTrOiEXHAKHb-VWqip3WD2BaxVPKSVJRh9t59Puov00OtjF9xCFRcSeshDgXx6lhFhbanyvM646eb8r0_ki1xbxtHqGNWOwJ6LDv4Afb9aY7SrDearcxa3wIOlpqNzd8IOZjCQdhSHkFx_7p0RxvM_fWzzruUyM2j3w"/>
+<div class="absolute inset-0 bg-gradient-to-t from-deep-forest/90 via-deep-forest/20 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-4 w-full">
+<div class="flex justify-between items-center mb-1">
+<h4 class="text-surface-bright font-title-md text-title-md">Neon Horizon</h4>
+<div class="bg-primary-container text-on-primary-container px-2 py-0.5 rounded-full text-label-sm font-bold">9.8 Match</div>
+</div>
+<p class="text-surface-variant text-label-sm line-clamp-2">A gripping odyssey through a rain-slicked cyber metropolis where memories are the only currency left.</p>
+</div>
+</div>
+<!-- Horizontal Scroll for others -->
+<div class="flex gap-gutter overflow-x-auto pb-4 px-1 custom-scrollbar snap-x">
+<!-- Movie 2 -->
+<div class="flex-shrink-0 w-48 snap-start space-y-2">
+<div class="aspect-[2/3] rounded-lg overflow-hidden relative shadow-sm">
+<img class="w-full h-full object-cover" data-alt="A sun-drenched, vintage cinematic landscape of a rolling meadow during the golden hour. A single lone oak tree stands in the center, with soft lens flares and warm, nostalgic sepia tones. Calm, peaceful aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgJ7rJEBkXfiziLcTQqHZrAbkV53sZymQJpjkCzu0Ukuq-3QfN798qIoUKTd535K-cmvIE7I7b1kCIZWaoL2r-vfHP_50k6do0CG4D5fbT-GzcKBDCNHj8RLxPLl0uLB3w5NR6AtbGRbn3FtTikEGvBH-Rh5FVs46snt5g_AnadPohYn2dl7aFmU-NJJCWajOOUYFQTRUZfKwxr6h1dH6LkPkngzBQRttZS4yhfRxxipu7Pv7FlsTZYpMGu8G6gvKrhogcdH9rrQ"/>
+<div class="absolute top-2 right-2 bg-black/40 backdrop-blur-md text-white px-2 py-0.5 rounded-full text-[10px] font-bold">9.4</div>
+</div>
+<h5 class="font-title-md text-[14px] truncate px-1">Golden Echoes</h5>
+</div>
+<!-- Movie 3 -->
+<div class="flex-shrink-0 w-48 snap-start space-y-2">
+<div class="aspect-[2/3] rounded-lg overflow-hidden relative shadow-sm">
+<img class="w-full h-full object-cover" data-alt="Abstract art featuring dark, swirling oceanic waves under a pale moonlight. The composition is dramatic and high-contrast, utilizing deep forest greens and midnight blues with bright white sea foam. Moody and mysterious." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnURE9TiWTn4wkFIiK0t73NRHbSOWK6hDAlU6c_otTBkWBjarcjdNLFC-2cxLssBww20NqbJfUfUQ62ECq7tdJ-J1sZE4C8s_4OIaefIxhUPi_eZX5WjZ6dqwJlXPdhUG7gPS5dfcJnbOoh5alnDODJZ2CSEx5udMmu8aAzfBhib8KGlZDeS307-BZrWtmr6w8Q7xK7EAdxh9w02DDZuJblvX8-ZxelB_28ev9jU5HPT_q-1CtMSBi5Tok4njo-vY5FQse05685g"/>
+<div class="absolute top-2 right-2 bg-black/40 backdrop-blur-md text-white px-2 py-0.5 rounded-full text-[10px] font-bold">9.1</div>
+</div>
+<h5 class="font-title-md text-[14px] truncate px-1">Midnight Tides</h5>
+</div>
+<!-- Movie 4 -->
+<div class="flex-shrink-0 w-48 snap-start space-y-2">
+<div class="aspect-[2/3] rounded-lg overflow-hidden relative shadow-sm">
+<img class="w-full h-full object-cover" data-alt="Vibrant, high-saturated abstract explosion of colored smoke and light. Primarily using magenta, teal, and lime green. The lighting is theatrical and dynamic, creating a sense of energy and chaos. Modern pop art style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHI0fcPFsUj2eRgdxM2XDQM8HKWmFWuuj74P6-7J-om4Vmz_kNZL9UYqzJkPTRtiSVUA1UTFN_J_OwyG2w7HbSGqkZoHb5FSp44WfvoK1YPs7Yk_INTLH-1TFGB7iHyozJ_i_-RY0J721Kr5SvJPveLIvXLJhV3G7gqF34xrXZD7JOnmlVVkocIzbNzOmBZdraAH-QeslV7VvDyDsqTpqc9NdunL73nX7_Iyu4fRcKDd2O1Ml4W_GJ_any1BT_RQzukyLVyqT9NQ"/>
+<div class="absolute top-2 right-2 bg-black/40 backdrop-blur-md text-white px-2 py-0.5 rounded-full text-[10px] font-bold">8.7</div>
+</div>
+<h5 class="font-title-md text-[14px] truncate px-1">Chromatic Chaos</h5>
+</div>
+<!-- Movie 5 -->
+<div class="flex-shrink-0 w-48 snap-start space-y-2">
+<div class="aspect-[2/3] rounded-lg overflow-hidden relative shadow-sm">
+<img class="w-full h-full object-cover" data-alt="Minimalist architectural shot of a spiraling concrete staircase in a bright, airy gallery. Strong geometric shadows and clean lines. The palette is muted greys and off-whites, emphasizing structure and form. High-key lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTY7b0LtuE8ejBqAiOT5HZv2H8Ur-iSudK-tdSwvj2XVLwPd5yrNiFZRm01PMEZxUX5f2bBT2adx1MNFRM2kiduwncSi2UrH89SHZCBqm41cMGo8lX8jx27G6Xdn7i6X6WrExEgwMwhH5F11om041bj8ocJLxewI-oUVL2HWRxSGl8kbyEj2oU6m8gZA9Kfw_gJncrma-egID1PPD5oQ-R16FfBHgflyaBk4QG3VzJndWGUnO4iyOUF-5yFJRFLg58frxXoKaoGg"/>
+<div class="absolute top-2 right-2 bg-black/40 backdrop-blur-md text-white px-2 py-0.5 rounded-full text-[10px] font-bold">8.5</div>
+</div>
+<h5 class="font-title-md text-[14px] truncate px-1">Linear Paths</h5>
+</div>
+</div>
+</div>
+</section>
+<!-- Room Activity Feed (Subtle) -->
+<section class="bg-surface-container-low rounded-lg p-4">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-primary text-[20px]">forum</span>
+<h4 class="font-title-md text-[14px] text-deep-forest">Room Chatter</h4>
+</div>
+<div class="space-y-3">
+<div class="flex gap-2">
+<span class="font-bold text-label-sm text-primary">Sarah:</span>
+<p class="text-label-sm text-on-surface-variant">The Axolotl is definitely the cutest choice! 💖</p>
+</div>
+<div class="flex gap-2">
+<span class="font-bold text-label-sm text-primary">Marcus:</span>
+<p class="text-label-sm text-on-surface-variant">I don't know, a Rabbit feels more cozy...</p>
+</div>
+</div>
+<div class="mt-4 flex items-center gap-2 bg-surface rounded-full px-4 py-2 border border-outline-variant/30">
+<input class="bg-transparent border-none focus:ring-0 text-label-sm w-full p-0" placeholder="Type a message..." type="text"/>
+<button class="text-primary active:scale-90 transition-transform">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-4 pt-2 bg-surface shadow-[0_-4px_12px_rgba(8,28,21,0.08)] z-50 rounded-t-lg">
+<!-- Dashboard -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1.5 hover:bg-surface-container-highest transition-all duration-300" href="../dashboard/code.html">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</a>
+<!-- Blend (Active) -->
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-5 py-1.5 scale-95 transition-all duration-300 ease-out" href="../create_watch_room/code.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">movie_filter</span>
+<span class="font-label-sm text-label-sm">Blend</span>
+</a>
+<!-- History -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1.5 hover:bg-surface-container-highest transition-all duration-300" href="../room_history/code.html">
+<span class="material-symbols-outlined">history</span>
+<span class="font-label-sm text-label-sm">History</span>
+</a>
+<!-- Profile -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1.5 hover:bg-surface-container-highest transition-all duration-300" href="../my_profile/code.html">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for voting pulse
+        document.querySelectorAll('.friend-vote').forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.add('scale-95');
+                setTimeout(() => item.classList.remove('scale-95'), 200);
+            });
+        });
+
+        // Simple parallax effect for movie cards on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroImg = document.querySelector('.group img');
+            if(heroImg) {
+                heroImg.style.transform = `translateY(${scrolled * 0.1}px) scale(1.05)`;
+            }
+        });
+    </script>
+</body></html>
