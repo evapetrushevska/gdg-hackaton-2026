@@ -7,6 +7,7 @@ import MyProfile from './pages/MyProfile'
 import RoomHistory from './pages/RoomHistory'
 import WatchRoomLobby from './pages/WatchRoomLobby'
 import WatchingNow from './pages/WatchingNow'
+import MovieOver from './pages/MovieOver'
 import YourMovieTaste from './pages/YourMovieTaste'
 
 function App() {
@@ -34,6 +35,8 @@ function App() {
         return <MyProfile onNavigate={onNavigate} />
       case 'watching_now':
         return <WatchingNow onNavigate={onNavigate} />
+      case 'movie_over':
+        return <MovieOver onNavigate={onNavigate} />
       default:
         return <Login onNavigate={onNavigate} />
     }

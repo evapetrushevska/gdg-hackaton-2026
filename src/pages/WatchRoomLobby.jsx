@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function WatchRoomLobby({ onNavigate = () => {} }) {
   return (
-    <div className="bg-background text-on-background min-h-screen pb-24 font-body-md text-body-md">
+    <div className="bg-background text-on-background min-h-screen pb-24 font-body-md text-body-md overflow-y-auto custom-scrollbar">
       <header className="sticky top-0 z-50 bg-surface-container-low flex justify-between items-center w-full px-margin-mobile py-stack-sm shadow-sm">
         <div className="flex items-center gap-3">
           <img
@@ -17,7 +17,7 @@ export default function WatchRoomLobby({ onNavigate = () => {} }) {
         </button>
       </header>
 
-      <main className="px-margin-mobile pt-stack-md space-y-stack-lg">
+      <main className="px-margin-mobile pt-stack-md space-y-stack-lg max-w-5xl mx-auto">
         <section className="relative overflow-hidden bg-surface-variant p-6 rounded-lg shadow-sm border border-primary-fixed/20">
           <div className="flex flex-col items-center text-center space-y-4">
             <div className="organic-shape bg-primary-container/20 p-8 relative animate-pulse">
@@ -102,7 +102,7 @@ export default function WatchRoomLobby({ onNavigate = () => {} }) {
             <span className="material-symbols-outlined text-primary">auto_awesome</span>
           </div>
           <div className="space-y-4">
-            <div className="relative group overflow-hidden rounded-lg bg-surface-container h-64 shadow-sm hover:shadow-md transition-shadow">
+            <div className="relative group overflow-hidden rounded-lg bg-surface-container h-80 shadow-sm hover:shadow-md transition-shadow">
               <img
                 className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 data-alt="A cinematic, low-angle shot of a glowing futuristic city at night, with neon reflections in puddles on the ground. Deep teals and vibrant greens dominate the palette, creating a moody, atmospheric science fiction vibe. Soft bokeh lights in the background."
@@ -111,11 +111,14 @@ export default function WatchRoomLobby({ onNavigate = () => {} }) {
               <div className="absolute inset-0 bg-gradient-to-t from-deep-forest/90 via-deep-forest/20 to-transparent" />
               <div className="absolute bottom-0 left-0 p-4 w-full">
                 <div className="flex justify-between items-center mb-1">
-                  <h4 className="text-surface-bright font-title-md text-title-md">Neon Horizon</h4>
+                  <div>
+                    <h4 className="text-on-surface font-title-md text-title-md">Neon Horizon</h4>
+                    <p className="text-on-surface-variant text-label-sm mt-1">Cast: Timothée Chalamet, Zendaya, Austin Butler</p>
+                  </div>
                   <div className="bg-primary-container text-on-primary-container px-2 py-0.5 rounded-full text-label-sm font-bold">9.8 Match</div>
                 </div>
-                <p className="text-surface-variant text-label-sm line-clamp-2">
-                  A gripping odyssey through a rain-slicked cyber metropolis where memories are the only currency left.
+                <p className="text-on-surface text-label-sm line-clamp-3">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa.
                 </p>
               </div>
             </div>
@@ -193,21 +196,21 @@ export default function WatchRoomLobby({ onNavigate = () => {} }) {
       </main>
 
       <nav className="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-4 pt-2 bg-surface shadow-[0_-4px_12px_rgba(8,28,21,0.08)] z-50 rounded-t-lg">
-        <button className="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1.5 hover:bg-surface-container-highest transition-all duration-300" type="button" onClick={() => onNavigate('dashboard')}>
+        <button className="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1.5 hover:bg-surface-container-highest rounded-full transition-colors active-scale" type="button" onClick={() => onNavigate('dashboard')}>
           <span className="material-symbols-outlined">home</span>
           <span className="font-label-sm text-label-sm">Dashboard</span>
         </button>
-        <button className="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-5 py-1.5 scale-95 transition-all duration-300 ease-out" type="button" onClick={() => onNavigate('create_watch_room')}>
+        <button className="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-5 py-1.5 active-scale" type="button" onClick={() => onNavigate('create_watch_room')}>
           <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>
             movie_filter
           </span>
           <span className="font-label-sm text-label-sm">Blend</span>
         </button>
-        <button className="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1.5 hover:bg-surface-container-highest transition-all duration-300" type="button" onClick={() => onNavigate('room_history')}>
+        <button className="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1.5 hover:bg-surface-container-highest rounded-full transition-colors active-scale" type="button" onClick={() => onNavigate('room_history')}>
           <span className="material-symbols-outlined">history</span>
           <span className="font-label-sm text-label-sm">History</span>
         </button>
-        <button className="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1.5 hover:bg-surface-container-highest transition-all duration-300" type="button" onClick={() => onNavigate('my_profile')}>
+        <button className="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1.5 hover:bg-surface-container-highest rounded-full transition-colors active-scale" type="button" onClick={() => onNavigate('my_profile')}>
           <span className="material-symbols-outlined">person</span>
           <span className="font-label-sm text-label-sm">Profile</span>
         </button>

@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 export default function WatchingNow({ onNavigate = () => {} }) {
   const [isPlaying, setIsPlaying] = useState(true)
   const [timeLeft, setTimeLeft] = useState(4482)
+  const [showRatingModal, setShowRatingModal] = useState(false)
+  const [rating, setRating] = useState(null)
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -24,6 +26,19 @@ export default function WatchingNow({ onNavigate = () => {} }) {
 
   const togglePlay = () => {
     setIsPlaying((current) => !current)
+  }
+
+  useEffect(() => {
+    if (timeLeft <= 0 && rating === null) {
+      setIsPlaying(false)
+      setShowRatingModal(true)
+    }
+  }, [timeLeft, rating])
+
+  const handleRate = (liked) => {
+    setRating(liked)
+    setShowRatingModal(false)
+    // TODO: send to server or sync with room members
   }
 
   return (
@@ -102,27 +117,29 @@ export default function WatchingNow({ onNavigate = () => {} }) {
           </div>
         </section>
 
-        <section className="bg-primary-container text-on-primary-container rounded-lg p-6 flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-4 duration-500" id="completion-prompt">
-          <div className="flex items-start gap-4">
-            <div className="bg-on-primary-container/20 p-2 rounded-full">
-              <span className="material-symbols-outlined">question_mark</span>
-            </div>
-            <div>
-              <h3 className="font-title-md text-title-md">Is the movie done?</h3>
-              <p className="opacity-90 text-sm">Synchronizing everyone's progress...</p>
-            </div>
-          </div>
-          <div className="flex flex-col sm:flex-row gap-3 mt-2">
-            <button className="flex-1 bg-white text-primary font-bold py-3 rounded-full hover:bg-surface-bright transition-colors active:scale-[0.98]" type="button">
-              Yes, rate it!
-            </button>
-            <button style={{ color: '#CF0F47' }} className="flex-1 bg-deep-forest text-white font-bold py-3 rounded-full hover:bg-opacity-90 transition-colors active:scale-[0.98]" type="button">
-              Not yet (Add time)
-            </button>
-          </div>
-        </section>
+        {/* Rating modal appears when the movie ends - interrupting and requires answer */}
+        {/* Hidden inline prompt removed; will use modal that appears when timer reaches 0 */}
+        
       </main>
-
+      {showRatingModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
+          <div className="bg-surface-variant p-6 rounded-lg max-w-md w-full mx-4">
+            <div className="flex items-start gap-3">
+              <div className="bg-on-surface/10 p-2 rounded-full">
+                <span className="material-symbols-outlined">question_mark</span>
+              </div>
+              <div>
+                <h3 className="font-title-md text-title-md">Did you like the movie?</h3>
+                <p className="text-on-surface-variant text-sm mt-1">Please tell the room how you felt about this movie.</p>
+              </div>
+            </div>
+            <div className="flex gap-3 mt-4">
+              <button onClick={() => handleRate(true)} className="flex-1 bg-primary-container text-on-primary-container py-3 rounded-full font-bold">Liked</button>
+              <button onClick={() => handleRate(false)} className="flex-1 bg-surface-container-high text-primary py-3 rounded-full font-bold">Not liked</button>
+            </div>
+          </div>
+        </div>
+      )}
       <nav className="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-4 pt-2 bg-surface dark:bg-surface-dim shadow-[0_-4px_12px_rgba(8,28,21,0.08)] z-50 rounded-t-lg">
         <button className="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1.5 hover:bg-surface-container-highest dark:hover:bg-surface-variant transition-all rounded-full group" type="button">
           <span className="material-symbols-outlined group-active:scale-90 transition-transform">home</span>

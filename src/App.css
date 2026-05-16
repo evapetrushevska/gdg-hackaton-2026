@@ -24,16 +24,29 @@ body {
 }
 
 .custom-scrollbar::-webkit-scrollbar {
-  width: 4px;
+  width: 8px;
+  height: 8px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
+  background: rgba(255, 11, 85, 0.18);
+  border-radius: 999px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #bec9c0;
-  border-radius: 10px;
+  background: #000000;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #111111;
+}
+
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #000000 rgba(255, 11, 85, 0.18);
 }
 
 .hide-scrollbar::-webkit-scrollbar {
@@ -97,6 +110,40 @@ body {
 .glass-overlay {
   background: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(8px);
+}
+
+.animate-slider-drift {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  width: max-content;
+  animation: slide-lr 20s linear infinite;
+  will-change: transform;
+}
+
+@keyframes slide-lr {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes subtle-pulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 1);
+    scale: 20px;
+  }
+  50% {
+    opacity: 0.6;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 1);
+    scale: 0px;
+  }
+}
+
+.animate-subtle-pulse {
+  animation: subtle-pulse 3s ease-in-out infinite;
 }
 
 .app-shell {

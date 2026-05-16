@@ -167,19 +167,19 @@ export default function MyProfile({ onNavigate = () => {} }) {
       </main>
 
       <nav className="fixed bottom-0 left-0 w-full bg-surface shadow-[0_-4px_12px_rgba(8,28,21,0.08)] flex justify-around items-center px-4 pb-4 pt-2 z-50 rounded-t-lg">
-        <button className="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1.5 hover:bg-surface-container-highest transition-all duration-300 ease-out active:scale-90" type="button" onClick={() => onNavigate('dashboard')}>
+        <button className="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1.5 hover:bg-surface-container-highest rounded-full transition-colors active-scale" type="button" onClick={() => onNavigate('dashboard')}>
           <span className="material-symbols-outlined">home</span>
           <span className="font-label-sm text-label-sm">Dashboard</span>
         </button>
-        <button className="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1.5 hover:bg-surface-container-highest transition-all duration-300 ease-out active:scale-90" type="button" onClick={() => onNavigate('create_watch_room')}>
+        <button className="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1.5 hover:bg-surface-container-highest rounded-full transition-colors active-scale" type="button" onClick={() => onNavigate('create_watch_room')}>
           <span className="material-symbols-outlined">movie_filter</span>
           <span className="font-label-sm text-label-sm">Blend</span>
         </button>
-        <button className="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1.5 hover:bg-surface-container-highest transition-all duration-300 ease-out active:scale-90" type="button" onClick={() => onNavigate('room_history')}>
+        <button className="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1.5 hover:bg-surface-container-highest rounded-full transition-colors active-scale" type="button" onClick={() => onNavigate('room_history')}>
           <span className="material-symbols-outlined">history</span>
           <span className="font-label-sm text-label-sm">History</span>
         </button>
-        <button className="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-5 py-1.5 transition-all duration-300 ease-out active:scale-90" type="button">
+        <button className="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-5 py-1.5 active-scale" type="button">
           <span className="material-symbols-outlined active-nav-icon">person</span>
           <span className="font-label-sm text-label-sm">Profile</span>
         </button>

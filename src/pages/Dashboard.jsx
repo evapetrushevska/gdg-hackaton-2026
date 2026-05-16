@@ -1,6 +1,42 @@
 import React from 'react'
 
 export default function Dashboard({ onNavigate = () => {} }) {
+  const movieRecommendations = [
+    {
+      title: 'Everything Everywhere All at Once',
+      match: '98% Match',
+      tags: ['Sci-Fi', 'Drama'],
+      img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAew1IQqVl9l5br8PR91C9V93VFUAXqDy32guktaixMISYttF1X5bT6QJj5pwlxpsP1mdUnLktr1SkQwxyCK3Kjn3OA0VL53JA0o3Re9cAjF6HcezFPTYLfPor466vE77oUD0sqiBWJI4k4hwDEAfJGT_6W1AK18vDSj-osheZMVws1-Y73qQfPLVUJnwRU0s70f826h97ojb2Jd8LCS3YXrbIWTaEGnej4gSB7hmJiZxL1i5mTs4_UTCiVaqXHB_uh7UJBoTd3xw',
+    },
+    {
+      title: 'Inception',
+      match: '92% Match',
+      tags: [],
+      img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC4sm-B2xHiokU5yFvS-FoS_jgZqUJOjlqg_kFA_eN14JCmRp3FKuIIj2F4_dAkpdwKnTA25QQ7JpIytueuN5FFz3QRdJVphH_2OArS7bZrjIfdUt8ucWz4ECLylOqt7kD4EPZu3ZeCB1IbG739kRGn_yW3PL44rep2AlkBTiudWliU4tfdjhluIc-GFM7Hkho8GGYYDBhchJth4Xvr6HyepGSenuLaTxR38iE-RNhNr56dfp_NbLjU6hDqdb3jRfh5LxUqPerufg',
+      description: 'Based on your love for Sci-Fi',
+    },
+    {
+      title: 'Parasite',
+      match: '89% Match',
+      tags: ['Thriller'],
+      img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAxsg3hD9cLj3iPPSVmhPq4u6nGJDlmX1KymTQYbHs9hrmiXtHmLW6-YJZxyV1K1vdmZ-4b5DfzBOg0W0FigkXp8-VDsClnfH3LdRRGdVbqd7hANkITBf7eBAXPNaOy0IvshAlIU6WAE37YwLM_dWzzQMpea_73duTcwzYOWkTYuHMdHjIggU90jlGsUJDC9iJYwHUXtVlsDsDvZ-2_aSKAdGLWr6OEHBNMOE4ca8izPHlWtszHHtsxD6dW2SbLo5n2IF7DOCjbRQ',
+    },
+    {
+      title: 'Grand Budapest Hotel',
+      match: '85% Match',
+      description: 'Recommended by Chloe',
+      img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCE4eWW2uNqxXjDdmuiAWZLSwadfe6X4FV-1y62HP24mDlm6KBAnpwQrjlgSDfowfWYDbQqnzkJoCg3lzHVjHtcC-nz8KOkP7v7SqJ21kag-zAp4BmcA3UJtpltYHOtlbc5RfF5WJt9CBGKhbtSPQ7yvcmldRFU5hheWiI5ngjv6EEIR2vtV4NFfQU9i6HLbI7UqJo_BvdpksEQAI-B-TNvfLj2EPZt2hDyLFyGgIrhV9FpzQ76aNyxL0LeUq5w3l3sU-v9oYsfNg',
+    },
+    {
+      title: 'Lady on Fire',
+      match: '94% Match',
+      tags: ['Romance'],
+      img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAj6HZD1c0cOwrsaAyEI3m-i3yZQgQcD_ByziaAdQebNX-igYg9gXmmKLS3vizKjxtvP9lFsqGa3qBEGX1Wh-XgM5m9ufAG52ljEwudzvo5zrg5arB3TftEeBjOMScfiSfWg46Uf-69NlvV2CzgCjIXqEQz3XKPDHhcKCRdf45rXbhiXYyljsSQ9SMp92WZvc2EYgUXQn43gik_YDi4PxrV048VafPG59_bYZXo-LKip5PgPIXa2eT4Q8vGmqL5MVHNv-lfgMXrDA',
+    },
+  ]
+  const [liked, setLiked] = React.useState({})
+  const [modalMovie, setModalMovie] = React.useState(null)
+
   return (
     <div className="font-body-md text-on-background selection:bg-secondary-container">
       <header className="fixed top-0 left-0 w-full z-40 bg-surface-container-low shadow-sm px-margin-mobile py-stack-sm flex justify-between items-center rounded-b-lg">
@@ -14,9 +50,14 @@ export default function Dashboard({ onNavigate = () => {} }) {
           </div>
           <h1 className="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">MovieBlend</h1>
         </div>
-        <button className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-highest transition-colors active-scale" type="button">
-          <span className="material-symbols-outlined text-primary">notifications</span>
-        </button>
+        <div className="flex items-center gap-2">
+          <button className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-highest transition-colors active-scale" type="button">
+            <span className="material-symbols-outlined text-primary">notifications</span>
+          </button>
+          <button className="px-4 py-2 rounded-full bg-secondary-container text-on-secondary-container font-label-sm active-scale hover:bg-secondary transition-colors" type="button" onClick={() => onNavigate('movie_over')}>
+            Test Movie Over
+          </button>
+        </div>
       </header>
 
       <main className="pt-24 pb-32 px-margin-mobile max-w-5xl mx-auto">
@@ -32,8 +73,8 @@ export default function Dashboard({ onNavigate = () => {} }) {
               <div>
                 <div className="flex items-center gap-2 mb-2">
                   <span className="relative flex h-3 w-3">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary-fixed opacity-75" />
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-secondary-fixed" />
+                    <span className="animate-subtle-pulse absolute inline-flex h-full w-full rounded-full bg-white" />
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-white" />
                   </span>
                   <span className="font-title-md text-title-md">Live Friend Lobby</span>
                 </div>
@@ -54,6 +95,7 @@ export default function Dashboard({ onNavigate = () => {} }) {
               </button>
             </div>
           </div>
+
           <div className="mt-6 flex -space-x-3 overflow-hidden">
             <img
               alt="Friend 1"
@@ -84,49 +126,10 @@ export default function Dashboard({ onNavigate = () => {} }) {
           </div>
         </div>
 
-        <div className="relative px-2">
-          <button className="absolute -left-2 top-[45%] -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-surface-container-high border border-outline hover:bg-surface-container-highest text-primary flex items-center justify-center backdrop-blur-sm hover:scale-110 active:scale-95 transition-transform shadow-lg" type="button">
-            <span className="material-symbols-outlined">chevron_left</span>
-          </button>
-          <button className="absolute -right-2 top-[45%] -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-surface-container-high border border-outline hover:bg-surface-container-highest text-primary flex items-center justify-center backdrop-blur-sm hover:scale-110 active:scale-95 transition-transform shadow-lg" type="button">
-            <span className="material-symbols-outlined">chevron_right</span>
-          </button>
-
-          <div className="flex gap-4 overflow-x-auto pb-4 no-scrollbar snap-x snap-mandatory scroll-smooth" id="movie-slider">
-            {[
-              {
-                title: 'Everything Everywhere All at Once',
-                match: '98% Match',
-                tags: ['Sci-Fi', 'Drama'],
-                img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAew1IQqVl9l5br8PR91C9V93VFUAXqDy32guktaixMISYttF1X5bT6QJj5pwlxpsP1mdUnLktr1SkQwxyCK3Kjn3OA0VL53JA0o3Re9cAjF6HcezFPTYLfPor466vE77oUD0sqiBWJI4k4hwDEAfJGT_6W1AK18vDSj-osheZMVws1-Y73qQfPLVUJnwRU0s70f826h97ojb2Jd8LCS3YXrbIWTaEGnej4gSB7hmJiZxL1i5mTs4_UTCiVaqXHB_uh7UJBoTd3xw',
-              },
-              {
-                title: 'Inception',
-                match: '92% Match',
-                tags: [],
-                img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC4sm-B2xHiokU5yFvS-FoS_jgZqUJOjlqg_kFA_eN14JCmRp3FKuIIj2F4_dAkpdwKnTA25QQ7JpIytueuN5FFz3QRdJVphH_2OArS7bZrjIfdUt8ucWz4ECLylOqt7kD4EPZu3ZeCB1IbG739kRGn_yW3PL44rep2AlkBTiudWliU4tfdjhluIc-GFM7Hkho8GGYYDBhchJth4Xvr6HyepGSenuLaTxR38iE-RNhNr56dfp_NbLjU6hDqdb3jRfh5LxUqPerufg',
-                description: 'Based on your love for Sci-Fi',
-              },
-              {
-                title: 'Parasite',
-                match: '89% Match',
-                tags: ['Thriller'],
-                img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAxsg3hD9cLj3iPPSVmhPq4u6nGJDlmX1KymTQYbHs9hrmiXtHmLW6-YJZxyV1K1vdmZ-4b5DfzBOg0W0FigkXp8-VDsClnfH3LdRRGdVbqd7hANkITBf7eBAXPNaOy0IvshAlIU6WAE37YwLM_dWzzQMpea_73duTcwzYOWkTYuHMdHjIggU90jlGsUJDC9iJYwHUXtVlsDsDvZ-2_aSKAdGLWr6OEHBNMOE4ca8izPHlWtszHHtsxD6dW2SbLo5n2IF7DOCjbRQ',
-              },
-              {
-                title: 'Grand Budapest Hotel',
-                match: '85% Match',
-                description: 'Recommended by Chloe',
-                img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCE4eWW2uNqxXjDdmuiAWZLSwadfe6X4FV-1y62HP24mDlm6KBAnpwQrjlgSDfowfWYDbQqnzkJoCg3lzHVjHtcC-nz8KOkP7v7SqJ21kag-zAp4BmcA3UJtpltYHOtlbc5RfF5WJt9CBGKhbtSPQ7yvcmldRFU5hheWiI5ngjv6EEIR2vtV4NFfQU9i6HLbI7UqJo_BvdpksEQAI-B-TNvfLj2EPZt2hDyLFyGgIrhV9FpzQ76aNyxL0LeUq5w3l3sU-v9oYsfNg',
-              },
-              {
-                title: 'Lady on Fire',
-                match: '94% Match',
-                tags: ['Romance'],
-                img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAj6HZD1c0cOwrsaAyEI3m-i3yZQgQcD_ByziaAdQebNX-igYg9gXmmKLS3vizKjxtvP9lFsqGa3qBEGX1Wh-XgM5m9ufAG52ljEwudzvo5zrg5arB3TftEeBjOMScfiSfWg46Uf-69NlvV2CzgCjIXqEQz3XKPDHhcKCRdf45rXbhiXYyljsSQ9SMp92WZvc2EYgUXQn43gik_YDi4PxrV048VafPG59_bYZXo-LKip5PgPIXa2eT4Q8vGmqL5MVHNv-lfgMXrDA',
-              },
-            ].map((movie) => (
-              <div key={movie.title} className="min-w-[260px] sm:min-w-[280px] max-w-[280px] snap-start active-scale flex-shrink-0">
+          <div className="relative px-2 overflow-hidden">
+          <div className="flex gap-4 flex-nowrap animate-slider-drift" id="movie-slider">
+            {movieRecommendations.concat(movieRecommendations).map((movie, index) => (
+              <div key={`${movie.title}-${index}`} className="min-w-[260px] sm:min-w-[280px] max-w-[280px] snap-start active-scale flex-shrink-0 cursor-pointer" onClick={() => setModalMovie(movie)}>
                 <div className="bg-surface-variant rounded-lg overflow-hidden relative group h-full flex flex-col">
                   <div className="relative h-72 w-full overflow-hidden">
                     <img alt={movie.title} className="w-full h-full object-cover" data-alt="Movie poster" src={movie.img} />
@@ -143,7 +146,7 @@ export default function Dashboard({ onNavigate = () => {} }) {
                       <p className="text-on-surface-variant text-label-sm mt-1">{movie.description}</p>
                     ) : (
                       <div className="flex gap-2 mt-2">
-                        {movie.tags.map((tag) => (
+                        {(movie.tags || []).map((tag) => (
                           <span key={tag} className="bg-primary-container/10 text-primary px-2 py-0.5 rounded-full text-[10px] font-label-sm uppercase">
                             {tag}
                           </span>
@@ -156,6 +159,67 @@ export default function Dashboard({ onNavigate = () => {} }) {
             ))}
           </div>
         </div>
+
+        {modalMovie && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60" onClick={() => setModalMovie(null)}>
+            <div className="bg-surface-variant p-4 rounded-lg max-w-3xl w-full mx-4" onClick={(e) => e.stopPropagation()}>
+              <div className="flex flex-col md:flex-row items-start gap-4">
+                <div className="w-full md:w-1/2 rounded-lg overflow-hidden">
+                  <img alt={modalMovie.title} src={modalMovie.img} className="w-full h-48 object-cover rounded-md" />
+                </div>
+                <div className="w-full md:w-1/2 text-left">
+                  <h2 className="text-2xl font-bold text-on-surface">{modalMovie.title}</h2>
+                  <div className="mt-3">
+                    <h3 className="font-title-md text-on-surface mb-1">Cast</h3>
+                    {modalMovie.cast ? (
+                      <p className="text-on-surface-variant text-body-md">{(modalMovie.cast || []).join(', ')}</p>
+                    ) : (
+                      <p className="text-on-surface-variant text-body-md">Not available</p>
+                    )}
+                  </div>
+                  <div className="mt-4">
+                    <p className="text-on-surface-variant text-body-md">{modalMovie.description || modalMovie.match || 'No description available.'}</p>
+                  </div>
+                  <div className="mt-4 flex justify-end">
+                    <button onClick={() => setModalMovie(null)} className="bg-primary text-on-primary px-4 py-2 rounded-full">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <section className="mb-stack-lg mt-stack-lg">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="font-title-md text-title-md text-on-surface">Try something new out of the box</h3>
+          </div>
+
+          <div className="relative px-2 overflow-hidden">
+            <div className="flex gap-4 flex-nowrap animate-slider-drift" id="new-movie-slider">
+              {movieRecommendations.concat(movieRecommendations).map((movie, index) => (
+                <div key={`${movie.title}-new-${index}`} className="min-w-[260px] sm:min-w-[280px] max-w-[280px] snap-start active-scale flex-shrink-0">
+                  <div className="bg-surface-variant rounded-lg overflow-hidden relative group h-full flex flex-col">
+                    <div className="relative h-72 w-full overflow-hidden">
+                      <img alt={movie.title} className="w-full h-full object-cover" data-alt="Movie poster" src={movie.img} />
+                    </div>
+                    <div className="p-4 bg-surface-variant flex-grow flex flex-col justify-between">
+                      <h4 className="font-title-md text-on-surface leading-tight">{movie.title}</h4>
+                      <div className="flex items-center justify-between mt-2">
+                        <div className="flex gap-2">
+                          {(movie.tags || []).map((tag) => (
+                            <span key={tag} className="bg-primary-container/10 text-primary px-2 py-0.5 rounded-full text-[10px] font-label-sm uppercase">{tag}</span>
+                          ))}
+                        </div>
+                        <div className="text-label-sm text-on-surface-variant">Rating will appear in the Watch Room after watching.</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
       </main>
 
       <nav className="fixed bottom-0 left-0 w-full z-50 rounded-t-lg bg-surface-container-low shadow-[0_-4px_12px_rgba(8,28,21,0.08)] flex justify-around items-center px-4 pb-4 pt-2">

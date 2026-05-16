@@ -203,19 +203,19 @@ export default function RoomHistory({ onNavigate = () => {} }) {
       </main>
 
       <nav className="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-4 pt-2 bg-surface dark:bg-surface-dim shadow-[0_-4px_12px_rgba(8,28,21,0.08)] z-50 rounded-t-lg">
-        <button className="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1.5 hover:bg-surface-container-highest dark:hover:bg-surface-variant transition-all duration-300" type="button" onClick={() => onNavigate('dashboard')}>
+        <button className="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1.5 hover:bg-surface-container-highest dark:hover:bg-surface-variant rounded-full transition-colors active-scale" type="button" onClick={() => onNavigate('dashboard')}>
           <span className="material-symbols-outlined mb-1" data-icon="home">home</span>
           <span className="font-label-sm text-label-sm">Dashboard</span>
         </button>
-        <button className="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1.5 hover:bg-surface-container-highest dark:hover:bg-surface-variant transition-all duration-300" type="button" onClick={() => onNavigate('create_watch_room')}>
+        <button className="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1.5 hover:bg-surface-container-highest dark:hover:bg-surface-variant rounded-full transition-colors active-scale" type="button" onClick={() => onNavigate('create_watch_room')}>
           <span className="material-symbols-outlined mb-1" data-icon="movie_filter">movie_filter</span>
           <span className="font-label-sm text-label-sm">Blend</span>
         </button>
-        <button className="flex flex-col items-center justify-center bg-secondary-container dark:bg-primary-container text-on-secondary-container dark:text-on-primary-container rounded-full px-5 py-1.5 scale-90 transition-all duration-300 ease-out" type="button" onClick={() => onNavigate('room_history')}>
+        <button className="flex flex-col items-center justify-center bg-secondary-container dark:bg-primary-container text-on-secondary-container dark:text-on-primary-container rounded-full px-5 py-1.5 active-scale" type="button" onClick={() => onNavigate('room_history')}>
           <span className="material-symbols-outlined mb-1" data-icon="history">history</span>
           <span className="font-label-sm text-label-sm">History</span>
         </button>
-        <button className="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1.5 hover:bg-surface-container-highest dark:hover:bg-surface-variant transition-all duration-300" type="button" onClick={() => onNavigate('my_profile')}>
+        <button className="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1.5 hover:bg-surface-container-highest dark:hover:bg-surface-variant rounded-full transition-colors active-scale" type="button" onClick={() => onNavigate('my_profile')}>
           <span className="material-symbols-outlined mb-1" data-icon="person">person</span>
           <span className="font-label-sm text-label-sm">Profile</span>
         </button>
