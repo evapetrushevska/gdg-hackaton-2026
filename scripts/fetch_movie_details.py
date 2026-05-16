@@ -42,9 +42,9 @@ for index, movie_id in enumerate(movie_ids, start=1):
                     director = person.get("name")
                     break
 
-            cast = [
+            casts = [
                 person.get("name")
-                for person in data.get("credits", {}).get("cast", [])[:5]
+                for person in data.get("credits", {}).get("casts", [])[:5]
             ]
 
             keywords = [
@@ -61,7 +61,7 @@ for index, movie_id in enumerate(movie_ids, start=1):
                 "release_date": data.get("release_date"),
                 "genres": [genre["name"] for genre in data.get("genres", [])],
                 "keywords": keywords,
-                "cast": cast,
+                "casts": casts,
                 "director": director,
                 "vote_average": data.get("vote_average"),
                 "vote_count": data.get("vote_count"),

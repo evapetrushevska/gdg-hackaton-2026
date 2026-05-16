@@ -17,7 +17,7 @@ def load_movies():
     movies_df["overview"] = movies_df["overview"].fillna("")
     movies_df["genres"] = movies_df["genres"].fillna("")
     movies_df["keywords"] = movies_df["keywords"].fillna("")
-    movies_df["cast"] = movies_df["cast"].fillna("")
+    movies_df["casts"] = movies_df["casts"].fillna("")
     movies_df["director"] = movies_df["director"].fillna("")
 
     movies_df["vote_average"] = pd.to_numeric(movies_df["vote_average"], errors="coerce").fillna(0)
@@ -31,7 +31,7 @@ def create_feature_text(row):
     return (
         str(row["genres"]) + " "
         + str(row["keywords"]) + " "
-        + str(row["cast"]) + " "
+        + str(row["casts"]) + " "
         + str(row["director"]) + " "
     )
 
@@ -186,10 +186,7 @@ def build_user_profile_from_data(user_data, movies_df, movie_matrix):
     watched = user_data.get("watched", [])
     watchlist = user_data.get("watchlist", [])
 
-    # Watched movies are stronger because the user already watched them
     watched_weight = 0.6
-
-    # Watchlist movies are weaker because they only show interest
     watchlist_weight = 0.2
 
     for movie in watched:
