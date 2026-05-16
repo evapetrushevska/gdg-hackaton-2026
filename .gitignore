@@ -1,13 +1,3 @@
-# Secret keys
 .env
 
-# Python cache
-__pycache__/
-*.pyc
-
-# Large/raw data files
-data/tmdb_movie_ids.json.gz
-
-# Optional: ignore temporary files
-*.tmp
-.DS_Store
+node_modules/
