@@ -12,4 +12,4 @@ ENV PORT=8080
 
 EXPOSE 8080
 
-CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:$PORT flask_api:app"]
+CMD ["sh", "-c", "python -m gunicorn --bind 0.0.0.0:$PORT flask_api:app"]
