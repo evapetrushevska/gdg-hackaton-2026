@@ -116,7 +116,7 @@ body {
   display: inline-flex;
   flex-wrap: nowrap;
   width: max-content;
-  animation: slide-lr 20s linear infinite;
+  animation: slide-lr 30s linear infinite;
   will-change: transform;
 }
 
