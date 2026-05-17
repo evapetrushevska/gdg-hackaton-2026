@@ -37,14 +37,14 @@ export default function WatchRoomLobby({ onNavigate = () => {}, setSelectedMovie
     return Math.round(score * 100)
   }
 
-  const calculateDynamicXP = (movie, isTopMovie = false) => {
-  const score = Number(movie?.score || 0); 
-  // Base XP is 10. We add more based on how far the score is from 100%.
-  // A 0.4 match (bad) will give way more than a 0.9 match (good).
-  const inverseScore = 1 - score; 
-  const reward = Math.round(10 + (Math.pow(inverseScore, 2) * 150));
-  
-  return `${reward} XP`;
+const calculateDynamicXP = (movie, isTopMovie = false) => {
+  const score = Number(movie?.score || 0)
+
+  // Higher match = higher XP
+  // Example: 0.90 match = 145 XP, 0.40 match = 70 XP
+  const reward = Math.round(10 + (score * 150))
+
+  return `${reward} XP`
 }
 
   const getYear = (movie) => {
@@ -69,27 +69,34 @@ export default function WatchRoomLobby({ onNavigate = () => {}, setSelectedMovie
 
   return (
     <div className="bg-background text-on-background min-h-screen pb-24 font-body-md text-body-md overflow-y-auto custom-scrollbar">
-      <header className="sticky top-0 z-50 bg-surface-container-low flex justify-between items-center w-full px-margin-mobile py-stack-sm shadow-sm">
+      <header className="fixed top-0 left-0 w-full z-40 bg-surface-container-low shadow-sm px-margin-mobile py-stack-sm flex justify-between items-center rounded-b-lg">
         <div className="flex items-center gap-3">
-          <img
-            alt="User profile photo"
-            className="w-10 h-10 rounded-full border-2 border-primary-fixed"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAL1p8JdCWSE5E5BdmB2TEI3ufuZJVN2QXyUKrHRwNUTzyErlNjiK9clgECHm1c82ircZVes8jEzDkh4s6sln8sDM5_zIiXuOGqPMAvSBUqLTTq4oXGMP3g186g4smi6DD7HWs1sPGpy6BJcqDHTehNLhN7N2MZQL5UYr83MVoeio875cH3jLXGnvi6uJh48s4SffPtOwLwzyaQnrS2off47cY2b7mLmdes4BmfZ0VpJC3g0lMunJSDtireD_pGHj0v21jRzwZYKA"
-          />
-          <h1 className="font-headline-lg-mobile text-headline-lg-mobile text-primary">
+          <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary">
+            <img
+              alt="User Profile"
+              className="w-full h-full object-cover"
+              src='/mascots/blend.png'
+            />
+          </div>
+
+          <h1 className="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">
             MovieBlend
           </h1>
         </div>
 
-        <button
-          className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-highest transition-all duration-200 active:scale-95"
-          type="button"
-        >
-          <span className="material-symbols-outlined text-primary">notifications</span>
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-highest transition-colors active-scale"
+            type="button"
+          >
+            <span className="material-symbols-outlined text-primary">notifications</span>
+          </button>
+
+          
+        </div>
       </header>
 
-      <main className="px-margin-mobile pt-stack-md space-y-stack-lg max-w-5xl mx-auto">
+      <main className="px-margin-mobile pt-24 space-y-stack-lg max-w-5xl mx-auto">
         <section className="relative overflow-hidden bg-surface-variant p-6 rounded-lg shadow-sm border border-primary-fixed/20">
           <div className="flex flex-col items-center text-center space-y-4">
             <div className="organic-shape bg-primary-container/20 p-8 relative animate-pulse">
@@ -100,7 +107,7 @@ export default function WatchRoomLobby({ onNavigate = () => {}, setSelectedMovie
                 pets
               </span>
               <div className="absolute -top-2 -right-2 bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-sm font-label-sm shadow-sm">
-                Hatching...
+               Preparing...
               </div>
             </div>
 
@@ -109,7 +116,7 @@ export default function WatchRoomLobby({ onNavigate = () => {}, setSelectedMovie
                 Waiting for consensus...
               </h2>
               <p className="text-on-surface-variant opacity-80">
-                3/5 friends have voted for the room mascot.
+                3/4 friends have voted for the room mascot.
               </p>
             </div>
 
@@ -138,7 +145,7 @@ export default function WatchRoomLobby({ onNavigate = () => {}, setSelectedMovie
                   >
                     eco
                   </span>
-                  <span className="text-label-sm font-label-sm">Axolotl</span>
+                  <span className="text-label-sm font-label-sm">Pengu</span>
                 </div>
               </div>
             </div>
@@ -178,7 +185,7 @@ export default function WatchRoomLobby({ onNavigate = () => {}, setSelectedMovie
                   >
                     eco
                   </span>
-                  <span className="text-label-sm font-label-sm">Axolotl</span>
+                  <span className="text-label-sm font-label-sm">Pengu</span>
                 </div>
               </div>
             </div>
@@ -307,14 +314,14 @@ export default function WatchRoomLobby({ onNavigate = () => {}, setSelectedMovie
         <section className="bg-surface-container-low rounded-lg p-4">
           <div className="flex items-center gap-2 mb-3">
             <span className="material-symbols-outlined text-primary text-[20px]">forum</span>
-            <h4 className="font-title-md text-[14px] text-deep-forest">Room Chatter</h4>
+            <h4 className="font-title-md text-[14px] text-deep-forest">Chatter Room</h4>
           </div>
 
           <div className="space-y-3">
             <div className="flex gap-2">
               <span className="font-bold text-label-sm text-primary">Sarah:</span>
               <p className="text-label-sm text-on-surface-variant">
-                The Axolotl is definitely the cutest choice! 💖
+                Pengu is definitely the cutest choice! 💖
               </p>
             </div>
 

@@ -71,6 +71,13 @@ export default function MyProfile({ onNavigate = () => {} }) {
     <div className="bg-background text-on-background font-body-md min-h-screen pb-24">
       <header className="sticky top-0 z-50 bg-surface-container-low shadow-sm px-margin-mobile py-stack-sm flex justify-between items-center w-full rounded-b-lg">
         <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary">
+            <img
+              alt="User Profile"
+              className="w-full h-full object-cover"
+              src='/mascots/blend.png'
+            />
+          </div>
           <h1 className="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">
             MovieBlend
           </h1>
@@ -111,26 +118,37 @@ export default function MyProfile({ onNavigate = () => {} }) {
             </h2>
 
             <div className="flex flex-wrap justify-center md:justify-start gap-4">
-              <div className="text-center">
-                <span className="block font-bold text-headline-lg-mobile text-primary">
-                  {watchedMovies.length}
-                </span>
-                <span className="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">
-                  Movies Watched
-                </span>
-              </div>
+  <div className="text-center">
+    <span className="block font-bold text-headline-lg-mobile text-primary">
+      {watchedMovies.length}
+    </span>
+    <span className="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">
+      Movies Watched
+    </span>
+  </div>
 
-              <div className="w-px h-10 bg-outline-variant self-center hidden md:block" />
+  <div className="w-px h-10 bg-outline-variant self-center hidden md:block" />
 
-              <div className="text-center">
-                <span className="block font-bold text-headline-lg-mobile text-primary">
-                  {watchlistMovies.length}
-                </span>
-                <span className="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">
-                  Watchlist
-                </span>
-              </div>
-            </div>
+  <div className="text-center">
+    <span className="block font-bold text-headline-lg-mobile text-primary">
+      {watchlistMovies.length}
+    </span>
+    <span className="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">
+      Watchlist
+    </span>
+  </div>
+
+  <div className="w-px h-10 bg-outline-variant self-center hidden md:block" />
+
+  <div className="text-center">
+    <span className="block font-bold text-headline-lg-mobile text-primary">
+      384
+    </span>
+    <span className="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">
+      XP
+    </span>
+  </div>
+</div>
           </div>
 
           <div className="ml-auto flex flex-col gap-2 w-full md:w-auto">

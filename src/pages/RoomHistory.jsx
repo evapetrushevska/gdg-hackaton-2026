@@ -39,7 +39,7 @@ export default function RoomHistory({ onNavigate = () => {} }) {
             <img
               alt="User Profile"
               className="w-full h-full object-cover"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAL1p8JdCWSE5E5BdmB2TEI3ufuZJVN2QXyUKrHRwNUTzyErlNjiK9clgECHm1c82ircZVes8jEzDkh4s6sln8sDM5_zIiXuOGqPMAvSBUqLTTq4oXGMP3g186g4smi6DD7HWs1sPGpy6BJcqDHTehNLhN7N2MZQL5UYr83MVoeio875cH3jLXGnvi6uJh48s4SffPtOwLwzyaQnrS2off47cY2b7mLmdes4BmfZ0VpJC3g0lMunJSDtireD_pGHj0v21jRzwZYKA"
+              src='/mascots/blend.png'
             />
           </div>
           <h1 className="font-headline-lg-mobile text-headline-lg-mobile text-primary">MovieBlend</h1>
@@ -116,12 +116,6 @@ export default function RoomHistory({ onNavigate = () => {} }) {
             <div className="w-full h-2 bg-surface rounded-full overflow-hidden mb-6">
               <div className="h-full bg-secondary-container rounded-full" style={{ width: '45%' }} />
             </div>
-            <button className="w-full py-3 bg-secondary-container text-on-secondary-container rounded-full font-label-sm text-label-sm font-semibold flex items-center justify-center gap-2 hover:bg-secondary-fixed transition-colors active:scale-95" type="button">
-              <span className="material-symbols-outlined text-lg" data-icon="bolt">
-                bolt
-              </span>
-              Quick-Replay
-            </button>
           </div>
 
           <div className="col-span-1 bg-surface-container-low rounded-lg p-6 flex flex-col transition-all duration-300 hover:shadow-md border border-surface-container-highest room-entry">
@@ -186,18 +180,6 @@ export default function RoomHistory({ onNavigate = () => {} }) {
             </div>
             <div className="absolute -top-12 -right-12 w-48 h-48 bg-primary/10 rounded-full blur-3xl" />
             <div className="absolute -bottom-12 -left-12 w-64 h-64 bg-secondary/10 rounded-full blur-3xl" />
-          </div>
-
-          <div className="col-span-1 border-2 border-dashed border-outline-variant rounded-lg p-6 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-container-low transition-colors group room-entry">
-            <div className="w-16 h-16 rounded-full bg-surface-container-highest flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-              <span className="material-symbols-outlined text-3xl text-primary" data-icon="add">
-                add
-              </span>
-            </div>
-            <h4 className="font-title-md text-title-md text-on-surface">Start New Room</h4>
-            <p className="font-label-sm text-label-sm text-on-surface-variant mt-1">
-              Create a new group and grow a new pet together
-            </p>
           </div>
         </div>
       </main>

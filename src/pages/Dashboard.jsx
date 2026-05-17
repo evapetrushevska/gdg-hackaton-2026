@@ -186,11 +186,11 @@ export default function Dashboard({ onNavigate = () => {} }) {
     <div className="font-body-md text-on-background selection:bg-secondary-container">
       <header className="fixed top-0 left-0 w-full z-40 bg-surface-container-low shadow-sm px-margin-mobile py-stack-sm flex justify-between items-center rounded-b-lg">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-fixed">
+          <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary">
             <img
               alt="User Profile"
               className="w-full h-full object-cover"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAL1p8JdCWSE5E5BdmB2TEI3ufuZJVN2QXyUKrHRwNUTzyErlNjiK9clgECHm1c82ircZVes8jEzDkh4s6sln8sDM5_zIiXuOGqPMAvSBUqLTTq4oXGMP3g186g4smi6DD7HWs1sPGpy6BJcqDHTehNLhN7N2MZQL5UYr83MVoeio875cH3jLXGnvi6uJh48s4SffPtOwLwzyaQnrS2off47cY2b7mLmdes4BmfZ0VpJC3g0lMunJSDtireD_pGHj0v21jRzwZYKA"
+              src='/mascots/blend.png'
             />
           </div>
 
@@ -214,7 +214,7 @@ export default function Dashboard({ onNavigate = () => {} }) {
       <main className="pt-24 pb-32 px-margin-mobile max-w-5xl mx-auto">
         <section className="mb-stack-lg">
           <p className="font-label-sm text-on-surface-variant mb-1">
-            Welcome back,
+            Welcome back
           </p>
 
           <h2 className="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">

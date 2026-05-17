@@ -45,11 +45,11 @@ export default function CreateWatchRoom({ onNavigate = () => {} }) {
     <div className="bg-background text-on-background min-h-screen pb-28">
       <header className="bg-surface-container-low sticky top-0 z-50 w-full px-margin-mobile py-stack-sm flex items-center justify-between shadow-sm">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-fixed">
+          <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary">
             <img
-              alt="User Avatar"
+              alt="User Profile"
               className="w-full h-full object-cover"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAL1p8JdCWSE5E5BdmB2TEI3ufuZJVN2QXyUKrHRwNUTzyErlNjiK9clgECHm1c82ircZVes8jEzDkh4s6sln8sDM5_zIiXuOGqPMAvSBUqLTTq4oXGMP3g186g4smi6DD7HWs1sPGpy6BJcqDHTehNLhN7N2MZQL5UYr83MVoeio875cH3jLXGnvi6uJh48s4SffPtOwLwzyaQnrS2off47cY2b7mLmdes4BmfZ0VpJC3g0lMunJSDtireD_pGHj0v21jRzwZYKA"
+              src='/mascots/blend.png'
             />
           </div>
           <h1 className="font-headline-lg-mobile text-headline-lg-mobile text-primary">MovieBlend</h1>
