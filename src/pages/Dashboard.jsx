@@ -65,6 +65,9 @@ export default function Dashboard({ onNavigate = () => {} }) {
     return `${Math.round(score * 100)} Match`
   }
 
+  const getXPReward = (isOpposite) => {
+    return isOpposite ? '50 XP' : '10 XP';
+  }
   const getMovieTags = (movie) => {
     if (movie?.tags) return movie.tags
 
@@ -94,6 +97,9 @@ export default function Dashboard({ onNavigate = () => {} }) {
     const movieKey = movie.tmdb_id || movie.imdb_id || movie.title
 
     return (
+
+      
+
       <div
         key={key}
         className="min-w-[260px] sm:min-w-[280px] max-w-[280px] snap-start active-scale flex-shrink-0 cursor-pointer"
@@ -107,7 +113,10 @@ export default function Dashboard({ onNavigate = () => {} }) {
               data-alt="Movie poster"
               src={getPoster(movie)}
             />
-
+            <div className="absolute bottom-3 left-3 bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
+              <span className="material-symbols-outlined text-[14px]">stars</span>
+              <span className="font-label-sm text-[10px] font-bold">{getXPReward(isOpposite)}</span>
+          </div>
             <div className="absolute top-3 right-3 glass-overlay px-3 py-1 rounded-full flex items-center gap-1">
               <span
                 className="material-symbols-outlined text-primary text-[16px]"
@@ -198,13 +207,7 @@ export default function Dashboard({ onNavigate = () => {} }) {
             <span className="material-symbols-outlined text-primary">notifications</span>
           </button>
 
-          <button
-            className="px-4 py-2 rounded-full bg-secondary-container text-on-secondary-container font-label-sm active-scale hover:bg-secondary transition-colors"
-            type="button"
-            onClick={() => onNavigate('movie_over')}
-          >
-            Test Movie Over
-          </button>
+          
         </div>
       </header>
 
@@ -321,23 +324,23 @@ export default function Dashboard({ onNavigate = () => {} }) {
 
         {modalMovie && (
           <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
             onClick={() => setModalMovie(null)}
           >
             <div
-              className="bg-surface-variant p-4 rounded-lg max-w-3xl w-full mx-4"
+              className="bg-surface-variant rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden"
               onClick={(event) => event.stopPropagation()}
             >
-              <div className="flex flex-col md:flex-row items-start gap-4">
-                <div className="w-full md:w-1/2 rounded-lg overflow-hidden">
+              <div className="flex flex-col md:flex-row items-stretch h-full">
+                <div className="w-full md:w-2/5 overflow-hidden">
                   <img
                     alt={modalMovie.title}
                     src={getPoster(modalMovie)}
-                    className="w-full h-72 object-cover rounded-md"
+                    className="w-full h-full object-cover"
                   />
                 </div>
 
-                <div className="w-full md:w-1/2 text-left">
+                <div className="w-full md:w-3/5 overflow-y-auto p-6 text-left">
                   <h2 className="text-2xl font-bold text-on-surface">
                     {modalMovie.title}
                   </h2>
@@ -379,7 +382,7 @@ export default function Dashboard({ onNavigate = () => {} }) {
                     </p>
                   </div>
 
-                  <div className="mt-4 flex justify-end">
+                  <div className="mt-6 flex justify-end">
                     <button
                       onClick={() => setModalMovie(null)}
                       className="bg-primary text-on-primary px-4 py-2 rounded-full"
