@@ -79,7 +79,7 @@ export default function RoomHistory({ onNavigate = () => {} }) {
                   <img
                     className="w-full h-full object-contain"
                     data-alt="A friendly, organic-shaped digital pet character with soft mint green accents and large expressive eyes, floating against a clean white background. The aesthetic is cozy-tech and inviting, designed for a modern social app."
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1-bvk0S8uD4hBAIdtMMosb9C8Yn4JSU5VUvP5yRRmO6not4I68A95XZaIST4-1vBYfgNScdk2UIMpakp_FyS0nt7jthtQHnEiC9pfzN0NdHh6u4YRJfPh1b7ZNDtESMTq1eHmb7LzSnBA57dVfvQ6bOEF0Be8TSSOz41_IlAnAsUqJYMj5d5AzYOVA-5WpfrAulHdK77y4SvqVHpLQhuophzRvv4XsNPGsoflTNDmKFEew5TnEOIa1jF_yE4aiHsrgD9s-cMebw"
+                    src="mascots/macka.png"
                   />
                 </div>
                 <div className="absolute -bottom-2 -right-2 bg-secondary text-white w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold border-2 border-white">
@@ -108,7 +108,7 @@ export default function RoomHistory({ onNavigate = () => {} }) {
                 <img
                   className="w-full h-full object-contain"
                   data-alt="A small, cute robotic pet with a minimalist organic design, featuring glowing blue sensors and soft rounded edges. The character is centered in a warm, nature-inspired digital environment with a soft-focus background."
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQtzCtD_isQNoCx7uWA8d0YLAJdsKwarPa2MjKj4_FWSBuNrFWB6x_eaA7yYVuzS4yLADoG07_P4h8egRB6tMUrlIIZWW-FdsguGXVVrkj2mqLhhEvZWVVQqihVYNNxqMxSqaN4-I7MzOV_JrZ9VRWXjdCoR2aT1MaETTVZSZNgs9B69_n9mjuWD410gO6ZP0aT8NrqklUsQAXF_si3Cyh7AxGB-Qsn5OU38X9Q7iZE3169xs2KE9Kh_qPvIAScMwEu8Su_cpeLA"
+                  src="mascots/robocat.png"
                 />
               </div>
               <span className="font-label-sm text-label-sm text-secondary font-bold">Level 4 Growth</span>
@@ -138,7 +138,7 @@ export default function RoomHistory({ onNavigate = () => {} }) {
                 <img
                   className="w-full h-full object-contain"
                   data-alt="A sleek, modern digital pet mascot with a deep forest green color scheme and minimalist circular details. The design is presented in a bright, high-key studio lighting setting that emphasizes its organic modernist curves."
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlEi9IHmoqC2v9BRJthEAyeFA3-ccwBby-Z0rtjQ-UjDmAqYEbQmVpzBlibskUh4KpWbwcjfKCOLg3w2XPKcx-gKrEvtRS8GXpp5gRcQ4oAPjrRZppS3sv1Wkfp6FzMN8SxGVDXH4puB6oN2uI600RRjOr6WWh96S7hQthJzYniFup9MZs9xMit9J9UzRjgNybFdtxQLbpM9SM-amv-HsccKE1PsqbkNEAD1rwEiP7yXsq6DObRiPJuPtu183HNOtjoynN1pcn4g"
+                  src="mascots/egg.png"
                 />
               </div>
               <div className="flex-1">
@@ -181,7 +181,7 @@ export default function RoomHistory({ onNavigate = () => {} }) {
               <img
                 className="w-full h-full object-contain"
                 data-alt="A sophisticated, high-end 3D character design of a digital room pet. It features a soft, friendly aesthetic with translucent parts and a glowing core. Set in a brightly lit, minimalist environment that feels premium and cozy."
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBerGEaURF3yhEk8nYdCWvUyXzYd1j_mkizDChLHXVJdVTZCX044oNTJdDb03X0fY1CfaP_2CEg3qUNvZQ_uTgJu6esUuGBVoaOmjkgg2dK4ZovbxGdKlAHFoCS2bTgvJvXLAJTdnLs2YFYYoxwnNDCiOfkJuW0-6d88qRY4Ekw_B2azD_sQKEaX-HNAYNOccRlB8u9ClDaxb-G00ENPYQW8Vb0XLaRWjxygeL-YxJQolet-bPS_qId-4IBT2fzW9X5mtCXGZnb_g"
+                src="mascots/mis.png"
               />
             </div>
             <div className="absolute -top-12 -right-12 w-48 h-48 bg-primary/10 rounded-full blur-3xl" />

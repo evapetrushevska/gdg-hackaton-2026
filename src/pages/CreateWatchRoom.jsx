@@ -5,19 +5,19 @@ const pets = [
     id: 'sprout',
     title: 'Sprout',
     subtitle: 'The Turtle',
-    img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD-RlmJyN4PbqDQQl12j27egaWouQuQ5INyrau9d8fAvMlodbIAv-SIAX0UHyqAWNUkO3yzwv8xS5tTQ01ms5GyoQuTtVmmkGEjoybKG8oKC-avSxCOO9cWPHuxnC6fpsrWPIENBvjnxhjM02qZK9D6bnZgDatX6TOVjeB5F9HGaKMQL7tyCSR5n0tb-8gHKB_apxikO5ToAlmi-_1y20ew03mDf7HfIG2tvpIPIztmoOa8j_IDI8WH2TZ9noA2xNAfTGuGWGpOKA',
+    img: '/mascots/kornjaca.png',
   },
   {
     id: 'pebble',
     title: 'Pebble',
     subtitle: 'The Penguin',
-    img: 'https://placehold.co/260x260/png?text=Pebble&bg=eff6ff&fg=0f172a',
+    img: '/mascots/pingvin.png',
   },
   {
     id: 'fern',
     title: 'Fern',
     subtitle: 'The Fox',
-    img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCRGnIGF23fKPcnxdrMzHirXtWG7eei5TTIBbxc3ayOwtFTrb9iVSUKcbqXUo3nDR6SfpRP_XiyFqwHvIpM4EiVDBZ_aJ30m93Bx9nsFza-VV0q07girQaQ-yixdBPPwFX5m17Ih_WfOVzvQu4nIy_ceg7ipzac0XDU4mphI1g5jbFCdXnv2x51e8ZxlvPqVATyiNBrteEGR6sbBmEjbmz4HVGhC0F-1DvfXQIb_V7pVoRGwLizXr9F5WpRf3nhaUsvNaw5fHewNg',
+    img: '/mascots/lisica.png',
   },
 ]
 
