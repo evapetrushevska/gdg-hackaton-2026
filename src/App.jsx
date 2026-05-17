@@ -12,6 +12,7 @@ import YourMovieTaste from './pages/YourMovieTaste'
 
 function App() {
   const [page, setPage] = useState('login')
+  const [selectedMovieData, setSelectedMovieData] = useState(null)
 
   const onNavigate = (targetPage) => {
     setPage(targetPage)
@@ -28,7 +29,7 @@ function App() {
       case 'create_watch_room':
         return <CreateWatchRoom onNavigate={onNavigate} />
       case 'watch_room_lobby':
-        return <WatchRoomLobby onNavigate={onNavigate} />
+        return <WatchRoomLobby onNavigate={onNavigate} setSelectedMovieData={setSelectedMovieData} />
       case 'room_history':
         return <RoomHistory onNavigate={onNavigate} />
       case 'my_profile':
@@ -36,7 +37,7 @@ function App() {
       case 'watching_now':
         return <WatchingNow onNavigate={onNavigate} />
       case 'movie_over':
-        return <MovieOver onNavigate={onNavigate} />
+        return <MovieOver onNavigate={onNavigate} selectedMovieData={selectedMovieData} />
       default:
         return <Login onNavigate={onNavigate} />
     }

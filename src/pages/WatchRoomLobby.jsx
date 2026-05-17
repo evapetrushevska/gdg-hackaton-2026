@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { getBlendedRecommendations } from '../api/recommendations'
 
-export default function WatchRoomLobby({ onNavigate = () => {} }) {
+export default function WatchRoomLobby({ onNavigate = () => {}, setSelectedMovieData = () => {} }) {
   const [blendedMovies, setBlendedMovies] = useState([])
   const [isLoadingBlend, setIsLoadingBlend] = useState(true)
   const [blendError, setBlendError] = useState('')
@@ -36,6 +36,16 @@ export default function WatchRoomLobby({ onNavigate = () => {} }) {
     const score = Number(movie?.score || 0)
     return Math.round(score * 100)
   }
+
+  const calculateDynamicXP = (movie, isTopMovie = false) => {
+  const score = Number(movie?.score || 0); 
+  // Base XP is 10. We add more based on how far the score is from 100%.
+  // A 0.4 match (bad) will give way more than a 0.9 match (good).
+  const inverseScore = 1 - score; 
+  const reward = Math.round(10 + (Math.pow(inverseScore, 2) * 150));
+  
+  return `${reward} XP`;
+}
 
   const getYear = (movie) => {
     return movie?.release_date ? movie.release_date.slice(0, 4) : 'Unknown'
@@ -241,6 +251,11 @@ export default function WatchRoomLobby({ onNavigate = () => {} }) {
                       <p className="text-on-surface-variant text-label-sm mt-1">
                         {getMovieTags(topMovie).join(', ')} · {getYear(topMovie)}
                       </p>
+
+                      <div className="flex items-center gap-1 bg-secondary/20 text-secondary px-2 py-0.5 rounded-full border border-secondary/30">
+                        <span className="material-symbols-outlined text-[12px]">stars</span>
+                        <span className="text-[10px] font-bold">{calculateDynamicXP(topMovie, true)}</span>
+                      </div>
                     </div>
 
                     <div className="bg-primary-container text-on-primary-container px-2 py-0.5 rounded-full text-label-sm font-bold whitespace-nowrap">
@@ -272,8 +287,13 @@ export default function WatchRoomLobby({ onNavigate = () => {} }) {
                       <div className="absolute top-2 right-2 bg-black/40 backdrop-blur-md text-white px-2 py-0.5 rounded-full text-[10px] font-bold">
                         {getShortScore(movie)}
                       </div>
+                      <div className="bg-primary text-on-primary px-2 py-1 rounded-md text-[11px] font-black shadow-lg animate-pulse">
+                        +{calculateDynamicXP(movie)}
+                      </div>
                     </div>
-
+                    <div className="bg-secondary text-on-secondary px-2 py-0.5 rounded-full text-[9px] font-black shadow-lg">
+                      +{calculateDynamicXP(movie)}
+                    </div>
                     <h5 className="font-title-md text-[14px] truncate px-1">
                       {movie.title}
                     </h5>
@@ -384,13 +404,25 @@ export default function WatchRoomLobby({ onNavigate = () => {} }) {
                   </p>
                 </div>
 
-                <div className="mt-6 flex justify-end">
+                <div className="mt-6 flex justify-end gap-3">
                   <button
                     type="button"
                     onClick={() => setSelectedMovie(null)}
-                    className="bg-primary text-on-primary px-5 py-2 rounded-full"
+                    className="bg-surface-container text-on-surface px-5 py-2 rounded-full"
                   >
                     Close
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      console.log('Watch button clicked', selectedMovie)
+                      setSelectedMovieData(selectedMovie)
+                      setSelectedMovie(null)
+                      onNavigate('movie_over')
+                    }}
+                    className="bg-primary text-on-primary px-5 py-2 rounded-full"
+                  >
+                    Watch
                   </button>
                 </div>
               </div>
