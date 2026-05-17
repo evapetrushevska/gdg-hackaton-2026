@@ -64,7 +64,7 @@ export default function WatchRoomLobby({ onNavigate = () => {} }) {
           <img
             alt="User profile photo"
             className="w-10 h-10 rounded-full border-2 border-primary-fixed"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRNvw8lprirxPATTAXrOBP4QBNGvXhYHY9VbNd6kfSvy07BrwWMcCk5gYXlqXg4IBz9Yb1trGbxjGrjA1ZXNTSpwqcvx5dyT6tuwXjUc44CwYHfD8Yz3b6TNe6M5_TJQbGjk-NYfCqa9UhbT6sSvwDeP1ilIpd7Lzom2mDYgWHjylIhl8TJRJ0PTrP58cRFDn_dsw7dpuduPYJ1lO8HPw7FNr7NqDMDYcj2XPRb3JsLYlj38Gp4WG--8FzizeNeQVHsStoZS_y2Q"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAL1p8JdCWSE5E5BdmB2TEI3ufuZJVN2QXyUKrHRwNUTzyErlNjiK9clgECHm1c82ircZVes8jEzDkh4s6sln8sDM5_zIiXuOGqPMAvSBUqLTTq4oXGMP3g186g4smi6DD7HWs1sPGpy6BJcqDHTehNLhN7N2MZQL5UYr83MVoeio875cH3jLXGnvi6uJh48s4SffPtOwLwzyaQnrS2off47cY2b7mLmdes4BmfZ0VpJC3g0lMunJSDtireD_pGHj0v21jRzwZYKA"
           />
           <h1 className="font-headline-lg-mobile text-headline-lg-mobile text-primary">
             MovieBlend
@@ -157,7 +157,7 @@ export default function WatchRoomLobby({ onNavigate = () => {} }) {
               <img
                 className="w-10 h-10 rounded-full"
                 alt="You"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMPfodnSaKr11yr7Nth3rNy_EBn6zU5XD6NCwnLp5kzbNIPM28M796dF45IDG-PxZbJev1O1nmIL5YbnLVrF1uAQHn-d_d8WovohMUZb2_MOtnkLv6_d2kD_V67rCJ7xOf7V2xNlDh0ka9iPRWAta69U6ECllwSCn5oY9pKbhlhG5PWBPTuosZysicaI5FdKCv5pcrldmp7K6Yz0SKEIhsdvZc7pCVgzEtnkazHhybus8d_kiMOROYPze2FAbQ10S0jdmBVQcqBA"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAL1p8JdCWSE5E5BdmB2TEI3ufuZJVN2QXyUKrHRwNUTzyErlNjiK9clgECHm1c82ircZVes8jEzDkh4s6sln8sDM5_zIiXuOGqPMAvSBUqLTTq4oXGMP3g186g4smi6DD7HWs1sPGpy6BJcqDHTehNLhN7N2MZQL5UYr83MVoeio875cH3jLXGnvi6uJh48s4SffPtOwLwzyaQnrS2off47cY2b7mLmdes4BmfZ0VpJC3g0lMunJSDtireD_pGHj0v21jRzwZYKA"
               />
               <div>
                 <p className="font-title-md text-[14px]">You</p>

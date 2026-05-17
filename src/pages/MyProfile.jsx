@@ -71,13 +71,6 @@ export default function MyProfile({ onNavigate = () => {} }) {
     <div className="bg-background text-on-background font-body-md min-h-screen pb-24">
       <header className="sticky top-0 z-50 bg-surface-container-low shadow-sm px-margin-mobile py-stack-sm flex justify-between items-center w-full rounded-b-lg">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-secondary-container overflow-hidden">
-            <img
-              alt="User profile photo"
-              className="w-full h-full object-cover"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRndUAMi4q94yaZH8R30nGI-CD2EHGhE21wrNywN1sgRlnkZIotfp3uX1r1wcyxjT4Jl0uoitIDaoFCc1y94DeRuBNZ8DgHF42pJWxl-swHFEONgOqOmkHIf59KTsnTGEdv-3A4UfYb6ZtxhJNLBUwZZDOf6SgapZjwUeLkfEVXzbLb2GgpV42Jjw18KGC6FvwTAQzHb5YO3ZJg7RBqDXTbsa_tP8gC21ROxTLuDQ4MpRp92vvyVW3AAdePqsjxpSYMEtaJ0ndyA"
-            />
-          </div>
           <h1 className="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">
             MovieBlend
           </h1>
@@ -98,7 +91,7 @@ export default function MyProfile({ onNavigate = () => {} }) {
               <img
                 alt="Alex Rivers"
                 className="w-full h-full object-cover"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXXWqGQRsxO5uTU4ohxx3g2tBmZpOcxP3Rqgh-nDuNcfq62Zt-cJHufENDL7pTVIM7AWnUeS4RUX2IFD28s-i726P3zxEsyxl7n66LCOdAhj8vPwHckU5vq8bXzfDDmnaec1YcbwiAdxJe2clueiHX3DM-FgsIm26hvllXB08B-tLSQ6QWFYilWXe8BFd_sxU3NgHo4QVo4llRg5EKCgc8k5_fIlpjTlwA8OV4m_2xm9WTNEQlw52D2ptKMZurtADY-SCQcaMOWw"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAL1p8JdCWSE5E5BdmB2TEI3ufuZJVN2QXyUKrHRwNUTzyErlNjiK9clgECHm1c82ircZVes8jEzDkh4s6sln8sDM5_zIiXuOGqPMAvSBUqLTTq4oXGMP3g186g4smi6DD7HWs1sPGpy6BJcqDHTehNLhN7N2MZQL5UYr83MVoeio875cH3jLXGnvi6uJh48s4SffPtOwLwzyaQnrS2off47cY2b7mLmdes4BmfZ0VpJC3g0lMunJSDtireD_pGHj0v21jRzwZYKA"
               />
             </div>
 
@@ -170,8 +163,8 @@ export default function MyProfile({ onNavigate = () => {} }) {
           <div className="flex gap-4 overflow-x-auto pb-4 custom-scrollbar">
             {[
               {
-                name: 'Sarah M.',
-                src: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAddMX6GPyESTnj9ph6Cc1KRggESTnFKQrl7YywU_qXFs2vIon6lAV2CLiMqHLYqdWc2NfR-5zTdiijPiiS-QTObwV3bueWNHkbLlJyuvJlj7ml566Tk3b0XbCoMxK6gdYKSM1O_wR3b8pHjq66iUB3al3Mdc3Rg_ScfUELhcgmrUQkNAQNcRHcUrJcPDHr-3qyz8mJZHA5AQFWvJoQxHDj6tV7Fmwd_QOvxlm8xeq-6Upl_gw7zSSrZwuC5qs0lM6VMZMLMxdzgQ',
+                name: 'Sarah',
+                src: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC50KtP1OI3aiYM0F6pziy56gJoDKe-Pzm_L0B0_JQaN7Dl_BGREcQlyC85XgacRRknQoPicn-omeNK-TkxKNXTh5QYapvjba3_Bw34UmFE6zJAnkv1bJbflA06FIeBkbM_YOPJPTUhhzITE_XC1F9k0gBVOQ3ik6ePBzZ3FaX0AnKp1TNteTono5aqypaiembUrQz7glsKMtG4AHr3RyrpKS3SP7NZS-y9PteTc5YABXd9RuJdY9VywfHQ4aZFP_eG9GLhSs4duw',
                 border: 'border-primary-container',
               },
               {
@@ -179,8 +172,8 @@ export default function MyProfile({ onNavigate = () => {} }) {
                 src: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCvo3OsTasuibKmAwBP9wwV-me-XSHgwKgnc2r379ZMjXKFEkX9KrGVz1EGn8Oh1r9SD2KzWnPaeNWxQ6cBbB7H9zA74j_D9wU6ZhBR8Tk-rdVwYOBv3lZ6zWqHGLxZh65rgiWG2vMDLfc45LK0-B8dznOrnUnJYM83Hi9XyHJkUPBMsRMT10YWYUeC0zVDD6X6nxZBQcKb5yudL2QSEVguFNPF12cLkk0Oyc8UM0js1vKfK1SkbZ8tMstoT-RKwC2GSyAyOZYrVQ',
               },
               {
-                name: 'Elena R.',
-                src: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCH7V9Wni65-piFUr-WoTZBk-_GEF-mGlDl1K-LgUNZeI2RhxhUu3DdFWxVn2-F2nvTr2gjtOQGcp1Y-19LbpZE7YCR-EhUaIH8fDWofAz9yjM4B-CTQ7nOStjd1VOwL4Pph2Ey21aO0Gg7XLZXBxxWp85uR5WznXYxJqichD0nIu0yFaSRzBUa9jDY-a3RvzsynVsbUa3xQUsV5_lYSP7EZd3TN_rQeTbgk97vWwqXw9TM8xRG0HZDf07HLaeiWgGfEj61vUckpA',
+                name: 'Elena',
+                src: '/mascots/profilepic1.jpg',
               },
             ].map((friend) => (
               <div key={friend.name} className="flex-shrink-0 flex flex-col items-center gap-2">

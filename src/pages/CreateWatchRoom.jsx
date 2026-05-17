@@ -49,7 +49,7 @@ export default function CreateWatchRoom({ onNavigate = () => {} }) {
             <img
               alt="User Avatar"
               className="w-full h-full object-cover"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5nHVMz_24Dcf-TnoY8-jkbYlVBJasGQlxGst1EMthsoVyfO6mPv4a0MRPiR6fK2xfH2zMtrKd_p4_CIpjSIrkMvr5HaafE9Ot8ID5KZ91KhFUrZfC8yHZslmsG3MNZUlM84y40UF8NJ-o0p7iaQP0-eSCCB6Kqk0F-uYnnSEar5vM6E8VYD7f_krMLak6UkdM1jnhqfYgDYY_R0rOLrn-lIphh2YfdyUWZCckVUMFLzdlVbdJ0JEVWgalosMDfEx7VXAuc_QIPw"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAL1p8JdCWSE5E5BdmB2TEI3ufuZJVN2QXyUKrHRwNUTzyErlNjiK9clgECHm1c82ircZVes8jEzDkh4s6sln8sDM5_zIiXuOGqPMAvSBUqLTTq4oXGMP3g186g4smi6DD7HWs1sPGpy6BJcqDHTehNLhN7N2MZQL5UYr83MVoeio875cH3jLXGnvi6uJh48s4SffPtOwLwzyaQnrS2off47cY2b7mLmdes4BmfZ0VpJC3g0lMunJSDtireD_pGHj0v21jRzwZYKA"
             />
           </div>
           <h1 className="font-headline-lg-mobile text-headline-lg-mobile text-primary">MovieBlend</h1>
@@ -73,7 +73,7 @@ export default function CreateWatchRoom({ onNavigate = () => {} }) {
             </span>
           </div>
           <div className="flex items-center gap-4 overflow-x-auto pb-2 hide-scrollbar">
-            {['Sarah', 'Marcus', 'Elena', 'Jamie'].map((name, index) => (
+            {['Sarah', 'Ana', 'Elena', 'Jamie'].map((name, index) => (
               <div key={name} className="flex flex-col items-center gap-2 flex-shrink-0">
                 <div className={`w-16 h-16 rounded-full overflow-hidden border-2 ${index === 0 ? 'border-primary' : 'border-transparent'}`}>
                   <img
@@ -83,10 +83,10 @@ export default function CreateWatchRoom({ onNavigate = () => {} }) {
                       index === 0
                         ? 'https://lh3.googleusercontent.com/aida-public/AB6AXuC50KtP1OI3aiYM0F6pziy56gJoDKe-Pzm_L0B0_JQaN7Dl_BGREcQlyC85XgacRRknQoPicn-omeNK-TkxKNXTh5QYapvjba3_Bw34UmFE6zJAnkv1bJbflA06FIeBkbM_YOPJPTUhhzITE_XC1F9k0gBVOQ3ik6ePBzZ3FaX0AnKp1TNteTono5aqypaiembUrQz7glsKMtG4AHr3RyrpKS3SP7NZS-y9PteTc5YABXd9RuJdY9VywfHQ4aZFP_eG9GLhSs4duw'
                         : index === 1
-                        ? 'https://placehold.co/80x80/png?text=Marcus&bg=dcfce7&fg=065f46'
+                        ? '/mascots/profilepic1.jpg'
                         : index === 2
-                        ? 'https://placehold.co/80x80/png?text=Elena&bg=fee2e2&fg=991b1b'
-                        : 'https://placehold.co/80x80/png?text=Jamie&bg=ede9fe&fg=312e81'
+                        ? '/mascots/profilepic2.jpg'
+                        : '/mascots/profilepic3.png'
                     }
                   />
                 </div>

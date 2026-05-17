@@ -39,7 +39,7 @@ export default function RoomHistory({ onNavigate = () => {} }) {
             <img
               alt="User Profile"
               className="w-full h-full object-cover"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCx9KQD0po9RjXZ94G_vGfTZipF7O45ijte2xrzbs9drFgCq1TaUt1ruJO_1DYYqLj5wzhEi4oXBDA_BgL_manGwo8aPl2cddRsSCztzEBN6Sxv9CxAEUirmuGq6qDiK0Ls2DwLp7tte0zmh13yjmTEGIOrfJi2u5NcT2_tLBYyO1oogyZXBeyoiiFJG8Qo9nN6KxJoz_d9cCgeBdZx7HZey8R163ABW90_T3G2dVLavIvIFNwgh_r_vsFETmBlnVX2FAd7YFy8eg"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAL1p8JdCWSE5E5BdmB2TEI3ufuZJVN2QXyUKrHRwNUTzyErlNjiK9clgECHm1c82ircZVes8jEzDkh4s6sln8sDM5_zIiXuOGqPMAvSBUqLTTq4oXGMP3g186g4smi6DD7HWs1sPGpy6BJcqDHTehNLhN7N2MZQL5UYr83MVoeio875cH3jLXGnvi6uJh48s4SffPtOwLwzyaQnrS2off47cY2b7mLmdes4BmfZ0VpJC3g0lMunJSDtireD_pGHj0v21jRzwZYKA"
             />
           </div>
           <h1 className="font-headline-lg-mobile text-headline-lg-mobile text-primary">MovieBlend</h1>
