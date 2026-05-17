@@ -8,6 +8,8 @@ from recommender.engine import (
     recommend_opposite_personal_from_data
 )
 
+from recommender.utils import load_movies, load_user_data
+
 app = Flask(__name__)
 
 
@@ -16,6 +18,101 @@ def home():
     return jsonify({
         "message": "Movie recommender API is running"
     })
+
+
+# -------------------------
+# HELPER FUNCTIONS
+# -------------------------
+
+def safe_value(value):
+    if value is None:
+        return None
+
+    try:
+        if str(value) == "nan":
+            return None
+    except Exception:
+        pass
+
+    # Converts pandas/numpy values like int64, float64 into normal Python values
+    try:
+        if hasattr(value, "item"):
+            return value.item()
+    except Exception:
+        pass
+
+    return value
+
+
+def build_user_movie_list(user_rows, movies_df, source_type):
+    results = []
+
+    for _, row in user_rows.iterrows():
+        imdb_id = str(row.get("Const", "")).strip()
+
+        if imdb_id == "":
+            continue
+
+        matches = movies_df[movies_df["imdb_id"] == imdb_id]
+
+        if matches.empty:
+            continue
+
+        movie = matches.iloc[0]
+
+        # User rating from IMDb watched file
+        rating = None
+
+        if "Your Rating" in row:
+            raw_rating = row.get("Your Rating")
+
+            if safe_value(raw_rating) is not None and str(raw_rating).strip() != "":
+                try:
+                    rating = float(raw_rating)
+                except Exception:
+                    rating = None
+
+        tmdb_id = safe_value(movie.get("tmdb_id"))
+        poster_path = safe_value(movie.get("poster_path"))
+        vote_average = safe_value(movie.get("vote_average"))
+        vote_count = safe_value(movie.get("vote_count"))
+
+        try:
+            tmdb_id = int(tmdb_id) if tmdb_id is not None else None
+        except Exception:
+            tmdb_id = None
+
+        try:
+            vote_average = float(vote_average) if vote_average is not None else 0
+        except Exception:
+            vote_average = 0
+
+        try:
+            vote_count = int(float(vote_count)) if vote_count is not None else 0
+        except Exception:
+            vote_count = 0
+
+        poster_path_string = str(poster_path) if poster_path else None
+
+        results.append({
+            "tmdb_id": tmdb_id,
+            "imdb_id": str(safe_value(movie.get("imdb_id")) or ""),
+            "title": str(safe_value(movie.get("title")) or ""),
+            "overview": str(safe_value(movie.get("overview")) or ""),
+            "release_date": str(safe_value(movie.get("release_date")) or ""),
+            "genres": str(safe_value(movie.get("genres")) or ""),
+            "poster_path": poster_path_string,
+            "poster_url": (
+                f"https://image.tmdb.org/t/p/w500{poster_path_string}"
+                if poster_path_string else None
+            ),
+            "vote_average": vote_average,
+            "vote_count": vote_count,
+            "user_rating": rating,
+            "source_type": source_type
+        })
+
+    return results
 
 
 # -------------------------
@@ -52,6 +149,39 @@ def test_blended_recommendations():
         "users": users,
         "recommendations": recommendations
     })
+
+
+@app.route("/movies/test/user/<user_name>", methods=["GET"])
+def test_user_movie_database(user_name):
+    try:
+        watched_df, watchlist_df = load_user_data(user_name)
+        movies_df = load_movies()
+
+        watched_movies = build_user_movie_list(
+            watched_df,
+            movies_df,
+            "watched"
+        )
+
+        watchlist_movies = build_user_movie_list(
+            watchlist_df,
+            movies_df,
+            "watchlist"
+        )
+
+        return jsonify({
+            "user": user_name,
+            "watched": watched_movies,
+            "watchlist": watchlist_movies
+        })
+
+    except Exception as error:
+        print("Movie database route error:", error)
+
+        return jsonify({
+            "error": "Failed to load user movie database",
+            "details": str(error)
+        }), 500
 
 
 # -------------------------
@@ -139,63 +269,6 @@ def opposite_personal_recommendations():
         "type": "opposite_personal",
         "recommendations": recommendations
     })
-
-def build_user_profile_from_data(user_data, movies_df, movie_matrix):
-    user_profile_vector = None
-    known_imdb_ids = set()
-
-    watched = user_data.get("watched", [])
-    watchlist = user_data.get("watchlist", [])
-
-    # Watched movies are stronger because the user already watched them
-    watched_weight = 0.6
-
-    # Watchlist movies are weaker because they only show interest
-    watchlist_weight = 0.2
-
-    for movie in watched:
-        imdb_id = str(movie.get("imdb_id", "")).strip()
-
-        if imdb_id == "":
-            continue
-
-        known_imdb_ids.add(imdb_id)
-
-        matches = movies_df[movies_df["imdb_id"] == imdb_id]
-
-        if matches.empty:
-            continue
-
-        movie_index = matches.index[0]
-        movie_vector = movie_matrix[movie_index] * watched_weight
-
-        if user_profile_vector is None:
-            user_profile_vector = movie_vector
-        else:
-            user_profile_vector = user_profile_vector + movie_vector
-
-    for movie in watchlist:
-        imdb_id = str(movie.get("imdb_id", "")).strip()
-
-        if imdb_id == "":
-            continue
-
-        known_imdb_ids.add(imdb_id)
-
-        matches = movies_df[movies_df["imdb_id"] == imdb_id]
-
-        if matches.empty:
-            continue
-
-        movie_index = matches.index[0]
-        movie_vector = movie_matrix[movie_index] * watchlist_weight
-
-        if user_profile_vector is None:
-            user_profile_vector = movie_vector
-        else:
-            user_profile_vector = user_profile_vector + movie_vector
-
-    return user_profile_vector, known_imdb_ids
 
 
 if __name__ == "__main__":
