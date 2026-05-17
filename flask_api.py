@@ -1,22 +1,45 @@
+import os
+import traceback
+
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 
 from recommender.engine import (
     recommend_personal,
     recommend_blended,
     recommend_personal_from_data,
     recommend_blended_from_data,
-    recommend_opposite_personal_from_data
+    recommend_opposite_personal_from_data,
 )
 
 from recommender.utils import load_movies, load_user_data
 
+
 app = Flask(__name__)
 
+# Allows your deployed Express backend / frontend to call this Flask API.
+# For hackathon/testing this is okay. Later you can restrict origins.
+CORS(app)
+
+
+# -------------------------
+# BASIC ROUTES
+# -------------------------
 
 @app.route("/", methods=["GET"])
 def home():
     return jsonify({
-        "message": "Movie recommender API is running"
+        "message": "Movie recommender API is running",
+        "service": "flask-recommender-api",
+        "status": "ok"
+    })
+
+
+@app.route("/health", methods=["GET"])
+def health():
+    return jsonify({
+        "status": "ok",
+        "service": "flask-recommender-api"
     })
 
 
@@ -29,7 +52,7 @@ def safe_value(value):
         return None
 
     try:
-        if str(value) == "nan":
+        if str(value).lower() == "nan":
             return None
     except Exception:
         pass
@@ -115,40 +138,65 @@ def build_user_movie_list(user_rows, movies_df, source_type):
     return results
 
 
+def error_response(message, error, status_code=500):
+    print(message)
+    print(str(error))
+    traceback.print_exc()
+
+    return jsonify({
+        "error": message,
+        "details": str(error)
+    }), status_code
+
+
 # -------------------------
 # TEST MODE: uses local CSV folders
 # -------------------------
 
 @app.route("/recommend/test/personal/<user_name>", methods=["GET"])
 def test_personal_recommendations(user_name):
-    recommendations = recommend_personal(
-        user_name,
-        number_of_recommendations=15,
-        save_to_csv=False
-    )
+    try:
+        recommendations = recommend_personal(
+            user_name,
+            number_of_recommendations=15,
+            save_to_csv=False
+        )
 
-    return jsonify({
-        "user": user_name,
-        "recommendations": recommendations
-    })
+        return jsonify({
+            "user": user_name,
+            "recommendations": recommendations
+        })
+
+    except Exception as error:
+        return error_response(
+            "Failed to get test personal recommendations",
+            error
+        )
 
 
 @app.route("/recommend/test/blended", methods=["POST"])
 def test_blended_recommendations():
-    data = request.get_json() or {}
+    try:
+        data = request.get_json(silent=True) or {}
 
-    users = data.get("users", ["user1", "user2", "user3"])
+        users = data.get("users", ["user1", "user2", "user3"])
 
-    recommendations = recommend_blended(
-        users,
-        number_of_recommendations=20,
-        save_to_csv=False
-    )
+        recommendations = recommend_blended(
+            users,
+            number_of_recommendations=20,
+            save_to_csv=False
+        )
 
-    return jsonify({
-        "users": users,
-        "recommendations": recommendations
-    })
+        return jsonify({
+            "users": users,
+            "recommendations": recommendations
+        })
+
+    except Exception as error:
+        return error_response(
+            "Failed to get test blended recommendations",
+            error
+        )
 
 
 @app.route("/movies/test/user/<user_name>", methods=["GET"])
@@ -176,12 +224,10 @@ def test_user_movie_database(user_name):
         })
 
     except Exception as error:
-        print("Movie database route error:", error)
-
-        return jsonify({
-            "error": "Failed to load user movie database",
-            "details": str(error)
-        }), 500
+        return error_response(
+            "Failed to load user movie database",
+            error
+        )
 
 
 # -------------------------
@@ -190,86 +236,117 @@ def test_user_movie_database(user_name):
 
 @app.route("/recommend/personal", methods=["POST"])
 def personal_recommendations():
-    data = request.get_json()
+    try:
+        data = request.get_json(silent=True)
 
-    if not data:
+        if not data:
+            return jsonify({
+                "error": "Missing request body."
+            }), 400
+
+        user_id = data.get("user_id")
+
+        if user_id is None:
+            return jsonify({
+                "error": "Missing user_id."
+            }), 400
+
+        recommendations = recommend_personal_from_data(
+            data,
+            number_of_recommendations=15
+        )
+
         return jsonify({
-            "error": "Missing request body."
-        }), 400
+            "user_id": user_id,
+            "recommendations": recommendations
+        })
 
-    user_id = data.get("user_id")
-
-    if user_id is None:
-        return jsonify({
-            "error": "Missing user_id."
-        }), 400
-
-    recommendations = recommend_personal_from_data(
-        data,
-        number_of_recommendations=15
-    )
-
-    return jsonify({
-        "user_id": user_id,
-        "recommendations": recommendations
-    })
+    except Exception as error:
+        return error_response(
+            "Failed to get personal recommendations",
+            error
+        )
 
 
 @app.route("/recommend/blended", methods=["POST"])
 def blended_recommendations():
-    data = request.get_json()
+    try:
+        data = request.get_json(silent=True)
 
-    if not data:
+        if not data:
+            return jsonify({
+                "error": "Missing request body."
+            }), 400
+
+        users = data.get("users", [])
+
+        if len(users) < 2:
+            return jsonify({
+                "error": "At least 2 users are required for blended recommendations."
+            }), 400
+
+        recommendations = recommend_blended_from_data(
+            users,
+            number_of_recommendations=50,
+            save_to_csv=False
+        )
+
         return jsonify({
-            "error": "Missing request body."
-        }), 400
+            "users": [user.get("user_id") for user in users],
+            "recommendations": recommendations
+        })
 
-    users = data.get("users", [])
-
-    if len(users) < 2:
-        return jsonify({
-            "error": "At least 2 users are required for blended recommendations."
-        }), 400
-
-    recommendations = recommend_blended_from_data(
-        users,
-        number_of_recommendations=50,
-        save_to_csv=False
-    )
-
-    return jsonify({
-        "users": [user.get("user_id") for user in users],
-        "recommendations": recommendations
-    })
+    except Exception as error:
+        return error_response(
+            "Failed to get blended recommendations",
+            error
+        )
 
 
 @app.route("/recommend/opposite/personal", methods=["POST"])
 def opposite_personal_recommendations():
-    data = request.get_json()
+    try:
+        data = request.get_json(silent=True)
 
-    if not data:
+        if not data:
+            return jsonify({
+                "error": "Missing request body."
+            }), 400
+
+        user_id = data.get("user_id")
+
+        if user_id is None:
+            return jsonify({
+                "error": "Missing user_id."
+            }), 400
+
+        recommendations = recommend_opposite_personal_from_data(
+            data,
+            number_of_recommendations=15
+        )
+
         return jsonify({
-            "error": "Missing request body."
-        }), 400
+            "user_id": user_id,
+            "type": "opposite_personal",
+            "recommendations": recommendations
+        })
 
-    user_id = data.get("user_id")
+    except Exception as error:
+        return error_response(
+            "Failed to get opposite personal recommendations",
+            error
+        )
 
-    if user_id is None:
-        return jsonify({
-            "error": "Missing user_id."
-        }), 400
 
-    recommendations = recommend_opposite_personal_from_data(
-        data,
-        number_of_recommendations=15
-    )
-
-    return jsonify({
-        "user_id": user_id,
-        "type": "opposite_personal",
-        "recommendations": recommendations
-    })
-
+# -------------------------
+# START SERVER
+# -------------------------
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5001)
+    port = int(os.environ.get("PORT", 8080))
+
+    app.run(
+        host="0.0.0.0",
+        port=port,
+        debug=False
+    )
